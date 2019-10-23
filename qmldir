@@ -1,0 +1,3 @@
+module apps.wastecollection
+WastecollectionApp 1.0 WastecollectionApp.qml
+WastecollectionConfig 1.0 WastecollectionConfig.qml

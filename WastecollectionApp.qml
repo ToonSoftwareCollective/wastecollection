@@ -1,4 +1,4 @@
-import QtQuick 1.1
+import QtQuick 2.1
 import qb.components 1.0
 import qb.base 1.0
 import FileIO 1.0
@@ -57,7 +57,7 @@ App {
 	property url trayUrl: "WastecollectionTray.qml"
 	property SystrayIcon wastecollectionTray
 
-	property url thumbnailIcon: "./drawables/waste_menu.png"
+	property url thumbnailIcon: "qrc:/tsc/waste_menu.png"
 	property string wasteDatesString
 	property string wasteType
 	property string wasteType2
@@ -1263,7 +1263,7 @@ App {
 		}
 		xmlhttp.send();
 	}
-
+                                               
 	function readMijnafvalwijzer() {
 	
 		var i = 0;
@@ -1283,6 +1283,9 @@ App {
 
 					i = aNode.indexOf("nameType");
 					if ( i > 0 ) {
+                                          j = aNode.indexOf("mededelingen",i);
+                                          aNode = aNode.slice(i-1,j);
+                                          i = aNode.indexOf("nameType");
 						while (i > 0) {
 	 						aNode = aNode.slice(i);
 							j = aNode.indexOf('"', 12);
@@ -1672,7 +1675,7 @@ App {
 		wasteDateNext2Type = "";
 		wasteDateNext3 = "";
 		wasteDateNext3Type = "";
-		wasteControlIcon = "./drawables/iconBack.png";
+		wasteControlIcon = "qrc:/tsc/iconBack.png";
 		wastecollectionListDates = "";
 		var counter = 0;
 		var i = 0;

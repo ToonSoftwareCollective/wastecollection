@@ -1,4 +1,4 @@
-import QtQuick 1.1
+import QtQuick 2.1
 import qb.components 1.0
 
 
@@ -26,7 +26,7 @@ Tile {
 
 	Image {
 		id: wasteIconzzBigBack
-		source: "./drawables/collectContainerDim.png"
+		source: "qrc:/tsc/collectContainerDim.png"
 		anchors {
 			baseline: parent.top
 			baselineOffset: 10
@@ -71,7 +71,7 @@ Tile {
 		id: wasteIconzzSmall1Back
 		height: isNxt ? 125 : 100
 		width: isNxt ? 125 : 100
-		source: "./drawables/collectContainerDim.png"
+		source: "qrc:/tsc/collectContainerDim.png"
 		anchors {
 			baseline: parent.top
 			baselineOffset: 10
@@ -86,7 +86,7 @@ Tile {
 		id: wasteIconzzSmall2Back
 		height: isNxt ? 125 : 100
 		width: isNxt ? 125 : 100
-		source: "./drawables/collectContainerDim.png"
+		source: "qrc:/tsc/collectContainerDim.png"
 		anchors {
 			baseline: parent.top
 			baselineOffset: 10
@@ -116,7 +116,7 @@ Tile {
 						app.wasteIconShow = false;
 					} else {
 						app.wasteIconBackShow = true;
-						app.wasteControlIcon = "./drawables/iconHide.png";
+						app.wasteControlIcon = "qrc:/tsc/iconHide.png";
 					}
 				}
 				if (app.wasteIcon2Show) {
@@ -125,7 +125,7 @@ Tile {
 						app.wasteIcon2Show = false;
 					} else {
 						app.wasteIcon2BackShow = true;
-						app.wasteControlIcon = "./drawables/iconHide.png";
+						app.wasteControlIcon = "qrc:/tsc/iconHide.png";
 					}
 				}
 			}

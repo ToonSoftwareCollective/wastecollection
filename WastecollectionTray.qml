@@ -1,4 +1,4 @@
-import QtQuick 1.1
+import QtQuick 2.1
 import qb.components 1.0
 import qb.base 1.0
 
@@ -16,7 +16,7 @@ SystrayIcon {
 	Image {
 		id: imgwastecollection
 		anchors.centerIn: parent
-		source: "./drawables/waste_icon.png"
+		source: "qrc:/tsc/waste_icon.png"
 	}
 
 }

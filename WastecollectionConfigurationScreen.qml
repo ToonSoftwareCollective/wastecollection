@@ -1,4 +1,4 @@
-import QtQuick 1.1
+import QtQuick 2.1
 import qb.components 1.0
 import BxtClient 1.0
 
@@ -184,7 +184,7 @@ Screen {
 	IconButton {
 		id: wasteZipcodeLabelButton;
 		width: isNxt ? 50 : 40
-		iconSource: "./drawables/edit.png"
+		iconSource: "qrc:/tsc/edit.png"
 
 		anchors {
 			left: wasteZipcodeLabel.right
@@ -242,7 +242,7 @@ Screen {
 	IconButton {
 		id: wasteStreetLabelButton;
 		width: isNxt ? 50 : 40
-		iconSource: "./drawables/edit.png"
+		iconSource: "qrc:/tsc/edit.png"
 
 		anchors {
 			left: wasteStreetLabel.right
@@ -291,7 +291,7 @@ Screen {
 	IconButton {
 		id: wasteHouseNrLabelButton;
 		width: isNxt ? 50 : 40
-		iconSource: "./drawables/edit.png"
+		iconSource: "qrc:/tsc/edit.png"
 
 		anchors {
 			left: wasteHouseNrLabel.right
@@ -349,7 +349,7 @@ Screen {
 	IconButton {
 		id: wasteCollectorLabelButton;
 		width: isNxt ? 50 : 40
-		iconSource: "./drawables/edit.png"
+		iconSource: "qrc:/tsc/edit.png"
 
 		anchors {
 			left: wasteCollectorLabel.right
@@ -414,7 +414,7 @@ Screen {
 	IconButton {
 		id: wasteICSIdLabelButton;
 		width: isNxt ? 50 : 40
-		iconSource: "./drawables/edit.png"
+		iconSource: "qrc:/tsc/edit.png"
 		visible : (wasteICSIdLabel.leftText.length > 5)
 		anchors {
 			left: wasteICSIdLabel.right
@@ -504,7 +504,7 @@ Screen {
 	IconButton {
 		id: wasteIconHourLabelButton;
 		width: isNxt ? 50 : 40
-		iconSource: "./drawables/edit.png"
+		iconSource: "qrc:/tsc/edit.png"
 		anchors {
 			left: wasteIconHourLabel.right
 			leftMargin: 6
@@ -713,7 +713,7 @@ Screen {
 	IconButton {
 		id: wasteExtraDatesLabelButton;
 		width: isNxt ? 50 : 40
-		iconSource: "./drawables/edit.png"
+		iconSource: "qrc:/tsc/edit.png"
 		anchors {
 			left: wasteExtraDatesLabel.right
 			leftMargin: 6
@@ -730,7 +730,7 @@ Screen {
 	IconButton {
 		id: wasteExtraDatesLabelDeleteButton;
 		width: isNxt ? 50 : 40
-		iconSource: "./drawables/icon_delete.png"
+		iconSource: "qrc:/tsc/icon_delete.png"
 		anchors {
 			left: wasteExtraDatesLabelButton.right
 			leftMargin: 6
@@ -792,7 +792,7 @@ Screen {
 	IconButton {
 		id: wasteExtraIconsLabelButton;
 		width: isNxt ? 50 : 40
-		iconSource: "./drawables/edit.png"
+		iconSource: "qrc:/tsc/edit.png"
 		anchors {
 			left: wasteExtraIconsLabel.right
 			leftMargin: 6
@@ -808,7 +808,7 @@ Screen {
 	IconButton {
 		id: wasteExtraIconsLabelDeleteButton;
 		width: isNxt ? 50 : 40
-		iconSource: "./drawables/icon_delete.png"
+		iconSource: "qrc:/tsc/icon_delete.png"
 		anchors {
 			left: wasteExtraIconsLabelButton.right
 			leftMargin: 6

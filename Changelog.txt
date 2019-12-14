@@ -1,4 +1,4 @@
-4.27
+4.28
 - added new waste categorie 'Milieuboer' to afvalalert.nl
 - added new waste provider groningen.nl (provider 32)
 

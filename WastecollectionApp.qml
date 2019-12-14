@@ -42,6 +42,7 @@ App {
 			//				29: "veldhoven.nl"
 			//				30: "meppel.nl"
 			//				31: "mijnafvalwijzer.nl(html)"
+			//				32: "groningen.nl"
 			//				0: "overig (handmatig)"
 			//		
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net
@@ -346,6 +347,9 @@ App {
 		if (wasteCollector == "30") {
 			readMeppel();
 		}
+		if (wasteCollector == "32") {
+			readGroningen();
+		}
 
 	}
 
@@ -551,6 +555,7 @@ App {
 		switch (shortName) {
 			case "gft": return 3;		//groente/fruit	
 			case "res": return 0;		//huisvuil
+			case "mil": return 1;		//milieu boer
 			default: break;
 		}
 		return "?";
@@ -1418,6 +1423,128 @@ App {
 		xmlhttp.send();
 	}
 
+	function readGroningen() {
+
+		var i = 0;
+		var j = 0;
+		var k = 0;
+		var l = 0;
+		var n = 0;
+		var o = 0;
+		var endList = 0;
+		var month = "00";
+		var day = "00";
+
+		wasteDatesString = "";
+		var wasteType = "";
+		var wasteCodeHTML = "";
+		var resultDates = [];
+		var mijnAfvalwijzerDates = [];
+		var wasteDateYMD = "";
+		var wasteYear = "";
+		var toDay = new Date();
+
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange=function() {
+			if (xmlhttp.readyState == 4) {
+				if (xmlhttp.status == 200) {
+					var aNode = xmlhttp.responseText;
+
+					// read specific waste collection dates
+
+					i = aNode.indexOf('<table class="afvalwijzerData"');
+					j = aNode.indexOf('</table', i);
+                                        aNode = aNode.slice(i,j);
+
+					wasteYear = toDay.getFullYear();
+
+						// process kleding & textiel
+
+					i = aNode.indexOf("<h2>Kleding, textiel en schoenen</h2>");
+
+					if (i > 0 ) {
+						for (var m = 1; m < 13; m++) {	// loop for all months
+							month = "0" + m; 
+							k = aNode.indexOf('td class="m-' + month.substring(month.length - 2) + '"', i);
+							l = aNode.indexOf('</td', k);
+							n = aNode.indexOf('<li>', k);
+							if (n > 0 ) {	// at least one date found for this month
+								while ((n < l) && (n > 0)) {
+									o = aNode.indexOf('</li', n);
+									if ((o > 0) && (o < l)) {
+										day = "0" + aNode.substring(n + 4, o);
+										mijnAfvalwijzerDates.push(wasteYear + "-" + month.substring(month.length - 2) + "-" + day.substring(day.length - 2) + ",5");
+										n = aNode.indexOf('<li', o);									
+									} else {
+										n = l + 1;
+									}									
+								}
+							}
+						}
+					}
+
+						// process oud papier
+
+					i = aNode.indexOf("<h2>Oud papier</h2>", k);
+
+					if (i > 0 ) {
+						for (var m = 1; m < 13; m++) {	// loop for all months
+							month = "0" + m; 
+							k = aNode.indexOf('td class="m-' + month.substring(month.length - 2) + '"', i);
+							l = aNode.indexOf('</td', k);
+							n = aNode.indexOf('<li>', k);
+							if (n > 0 ) {	// at least one date found for this month
+								while ((n < l) && (n > 0)) {
+									o = aNode.indexOf('</li', n);
+									if ((o > 0) && (o < l)) {
+										day = "0" + aNode.substring(n + 4, o);
+										mijnAfvalwijzerDates.push(wasteYear + "-" + month.substring(month.length - 2) + "-" + day.substring(day.length - 2) + ",2");
+										n = aNode.indexOf('<li', o);									
+									} else {
+										n = l + 1;
+									}									
+								}
+							}
+						}
+					}
+
+						// process chemocar
+
+					i = aNode.indexOf("<h2>Standplaats Chemokar</h2>", k);
+
+					if (i > 0 ) {
+						for (var m = 1; m < 13; m++) {	// loop for all months
+							month = "0" + m; 
+							k = aNode.indexOf('td class="m-' + month.substring(month.length - 2) + '"', i);
+							l = aNode.indexOf('</td', k);
+							n = aNode.indexOf('<li>', k);
+							if (n > 0 ) {	// at least one date found for this month
+								while ((n < l) && (n > 0)) {
+									o = aNode.indexOf('</li', n);
+									if ((o > 0) && (o < l)) {
+										day = "0" + aNode.substring(n + 4, o);
+										mijnAfvalwijzerDates.push(wasteYear + "-" + month.substring(month.length - 2) + "-" + day.substring(day.length - 2) + ",7");
+										n = aNode.indexOf('<li', o);
+									} else {
+										n = l + 1;
+									}									
+								}
+							}
+						}
+					}
+
+					var tmp = WastecollectionJS.sortArray2(mijnAfvalwijzerDates , extraDates);
+					for (i = 0; i < tmp.length; i++) {
+						wasteDatesString = wasteDatesString + tmp[i] + "\n";
+					}
+					writeWasteDates();
+				}
+			}
+		}
+		xmlhttp.open("GET", "https://gemeente.groningen.nl/afvalwijzer/groningen/" + wasteZipcode + "/" + wasteHouseNr + "/" + toDay.getFullYear(), true);
+		xmlhttp.send();
+	}
+
 	function readAfvalalert() {
 	
 		var i = 0;
@@ -1718,8 +1845,6 @@ App {
 						} else {  //switch at hour according to the settings
 
 							if (searchStrWasteIconHour.localeCompare(fileWasteDate) == 0) {
-								console.log("********** readcollected waste dates - reset:" + reset);
-
 								if (reset == "yes") {
 									wasteIcon2Show = true;
 									wasteIconShow = false;
@@ -1860,7 +1985,7 @@ App {
 		id: datetimeTimerWaste
 		repeat: true
 		running: false
-		interval: isNxt ? 20000 : 10000	//wait (1)20 sec after reboot before for triggering, after that only at wasteIconHour (default 18:00) daily
+		interval: isNxt ? 60000 : 180000	//wait (1)20 sec after reboot before for triggering, after that only at wasteIconHour (default 18:00) daily
 
 		onTriggered: {
 			updateWasteIcon("yes");	//update data on tile

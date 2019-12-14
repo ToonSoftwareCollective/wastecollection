@@ -1,3 +1,10 @@
+4.27
+- added new waste categorie 'Milieuboer' to afvalalert.nl
+- added new waste provider groningen.nl (provider 32)
+
+4.25
+- performance improvement for mijnafvalwijzer.nl (thanks to TheHogNL)
+
 4.24
 - implemented online retrieval for rmn.nl, no need for wget and cron jobs anymore
 

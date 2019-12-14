@@ -116,7 +116,7 @@ Screen {
 
 	function validateAfvalverwerker(text, isFinalString) {
 		if (isFinalString) {
-			if (parseInt(text) < 32)
+			if (parseInt(text) < 33)
 				return null;
 			else
 				return {title: "Ongeldig keuze", content: "Voer een getal in kleiner dan 32"};
@@ -388,7 +388,7 @@ Screen {
 					"              25 : area-afval.nl        26: gad.nl\n" +
 					"              27 : venlo.nl             28: rd4info.nl (Toon1)\n" +
 					"              29 : veldhoven.nl            30: meppel.nl" +
-					"              31 : mijnafvalwijzer.nl (html)" +
+					"              31 : mijnafvalwijzer.nl (html) 32: groningen.nl" +
 					"               0 : overig (handmatig)" , "Sluiten");
 		}
 	}

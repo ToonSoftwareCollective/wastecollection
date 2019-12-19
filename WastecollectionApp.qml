@@ -43,9 +43,9 @@ App {
 			//				30: "meppel.nl"
 			//				31: "mijnafvalwijzer.nl(html)"
 			//				32: "groningen.nl"
-			//				33: "2go-mobile.nl"
-			//				34: "2go-mobile.nl"
-			//				35: "2go-mobile.nl"
+			//				33: "bar-afvalbeheer.nl"
+			//				34: "twentemilieu.nl"
+			//				35: "reinis.nl"
 			//				0: "overig (handmatig)"
 			//		
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net

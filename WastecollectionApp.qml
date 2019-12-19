@@ -43,8 +43,9 @@ App {
 			//				30: "meppel.nl"
 			//				31: "mijnafvalwijzer.nl(html)"
 			//				32: "groningen.nl"
-			//				33: "bar-afvalbeheer.nl"
-			//				34: "Twentemilieu.nl"
+			//				33: "2go-mobile.nl"
+			//				34: "2go-mobile.nl"
+			//				35: "2go-mobile.nl"
 			//				0: "overig (handmatig)"
 			//		
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net
@@ -260,107 +261,44 @@ App {
 	}
 
 	function readWasteDates() {
-
-		if (wasteCollector == "1") {
-			readMijnafvalwijzer();
+		switch (wasteCollector) {
+			case "1": readMijnafvalwijzer();
+			case "2": readDeafvalapp();
+			case "3": readCureAfvalbeheerNew();
+			case "4": readCureAfvalbeheerNew();
+			case "5": readCureAfvalbeheer();
+			case "6": readCureAfvalbeheerNew();
+			case "7": readCureAfvalbeheerNew();
+			case "8": readCureAfvalbeheer();
+			case "9": readIok();
+			case "10": readLimburgNet();
+			case "11": readDenHaag();
+			case "12": readCureAfvalbeheerNew();
+			case "13": readArnhem();
+			case "14": readRova();
+			case "15": readAfvalalert();
+			case "16": readCureAfvalbeheerNew();
+			case "17": readRd4info();
+			case "18": readCureAfvalbeheerNew();
+			case "19": readDrimmelen();
+			case "20": readCureAfvalbeheer();
+			case "21": readOmrin();
+			case "22": readMijnafvalwijzer();
+			case "23": readCureAfvalbeheerNew();
+			case "24": readCureAfvalbeheerNew();
+			case "25": readCureAfvalbeheer();
+			case "26": readCureAfvalbeheerNew();
+			case "27": readCureAfvalbeheerNew();
+			case "28": readRd4info();
+			case "29": readCureAfvalbeheer();
+			case "30": readMeppel();
+			case "31": readMijnafvalwijzerHTML();
+			case "32": readGroningen();
+			case "33": read2goMobile();
+			case "34": read2goMobile();
+			case "35": read2goMobile();
+			default: break;
 		}
-		if (wasteCollector == "31") {
-			readMijnafvalwijzerHTML();
-		}
-		if (wasteCollector == "22") {
-			readMijnafvalwijzer();  //afvalstoffendienstcalender, same format
-		}
-		if (wasteCollector == "2") {   
-			readDeafvalapp();
-		}
-		if (wasteCollector == "6") {   
-			readCureAfvalbeheerNew();		//only waste description differs from cure-afvalbeheer
-		}
-		if (wasteCollector == "9") {
-			readIok();
-		}
-		if (wasteCollector == "10") {
-			readLimburgNet();
-		}
-		if (wasteCollector == "11") {
-			readDenHaag();
-		}
-		if (wasteCollector == "12") {
-			readCureAfvalbeheerNew();
-		}
-		if (wasteCollector == "13") {
-			readArnhem();
-		}
-		if (wasteCollector == "14") {
-			readRova();
-		}
-		if (wasteCollector == "15") {
-			readAfvalalert();
-		}
-		if ((wasteCollector == "17") || (wasteCollector == "28"))  {
-			readRd4info();
-		}
-		if (wasteCollector == "3") {   
-			readCureAfvalbeheerNew();
-		}
-		if (wasteCollector == "5") {   
-			readCureAfvalbeheer();		//only waste description differs from cure-afvalbeheer
-		}
-		if (wasteCollector == "8") {   
-			readCureAfvalbeheer();		//only waste description differs from cure-afvalbeheer
-		}
-		if (wasteCollector == "20") {   
-			readCureAfvalbeheer();		//only waste description differs from cure-afvalbeheer
-		}
-		if (wasteCollector == "4") {   
-			readCureAfvalbeheerNew();		//only waste description differs from cure-afvalbeheer
-		}
-		if (wasteCollector == "7") {   
-			readCureAfvalbeheerNew();		//only waste description and date formatting differs from cure-afvalbeheer
-		}
-		if (wasteCollector == "16") {   
-			readCureAfvalbeheerNew();		//only waste description differs from cure-afvalbeheer
-		}
-		if (wasteCollector == "18") {   
-			readCureAfvalbeheerNew();		//only waste description differs from cure-afvalbeheer
-		}
-		if (wasteCollector == "23") {   
-			readCureAfvalbeheerNew();		//only waste description differs from cure-afvalbeheer
-		}
-		if (wasteCollector == "24") {   
-			readCureAfvalbeheerNew();
-		}
-		if (wasteCollector == "26") {   
-			readCureAfvalbeheerNew();
-		}
-		if (wasteCollector == "27") {   
-			readCureAfvalbeheerNew();
-		}
-		if (wasteCollector == "19") {   
-			readDrimmelen();
-		}
-		if (wasteCollector == "21") {   
-			readOmrin();
-		}
-		if (wasteCollector == "25") {		//only waste description and date formatting differs from cure-afvalbeheer
-			readCureAfvalbeheer();
-		}
-		if (wasteCollector == "29") {		//only waste description and date formatting differs from cure-afvalbeheer
-			readCureAfvalbeheer();
-		}
-		if (wasteCollector == "30") {
-			readMeppel();
-		}
-		if (wasteCollector == "32") {
-			readGroningen();
-		}
-		if (wasteCollector == "33") { 		//bar-afbalbeheer.nl
-			read2goMobile();
-		}
-		if (wasteCollector == "34") {		// twentemilieu.nl
-			read2goMobile();
-		}
-
 	}
 
 	function wasteTypeMijnafvalwijzer(shortName) {
@@ -629,6 +567,9 @@ App {
 		if (wasteCollector == "34") {   //twentemilieu.nl
 	       		var params = "companyCode=8d97bb56-5afd-4cbc-a651-b4f7314264b4&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
+		if (wasteCollector == "35") {   //reinis.nl
+	       		var params = "companyCode=9dc25c8a-175a-4a41-b7a1-83f237a80b77&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
+		}
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
         	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -673,6 +614,9 @@ App {
 		}
 		if (wasteCollector == "34") {   //twentemilieu.nl
     	   		var params = "companyCode=8d97bb56-5afd-4cbc-a651-b4f7314264b4&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		}
+		if (wasteCollector == "35") {   //reinis.nl
+    	   		var params = "companyCode=9dc25c8a-175a-4a41-b7a1-83f237a80b77&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
 		}
 
 		var xmlhttp = new XMLHttpRequest();

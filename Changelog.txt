@@ -1,7 +1,8 @@
-4.29
+4.30
 - added provide bar-afvalbeheer.nl (Albrandswaard, Barendrecht, Ridderkerk), provider 33
 - added twentemilieu.nl, provider 34
-for both new providers enter your zipcode/housenr in the settings screen and enter the correct wasteprovider
+- added reinis.nl, provider 35
+for all these new providers enter your zipcode/housenr in the settings screen and enter the correct wasteprovider
 
 4.28
 - added new waste categorie 'Milieuboer' to afvalalert.nl

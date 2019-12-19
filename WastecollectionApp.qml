@@ -43,6 +43,8 @@ App {
 			//				30: "meppel.nl"
 			//				31: "mijnafvalwijzer.nl(html)"
 			//				32: "groningen.nl"
+			//				33: "bar-afvalbeheer.nl"
+			//				34: "Twentemilieu.nl"
 			//				0: "overig (handmatig)"
 			//		
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net
@@ -83,6 +85,8 @@ App {
 	property int wasteIconHour : 18
 	property string wastecollectionListDates
 	property variant extraDates : []
+	property variant addressJson
+	property variant calendar2goMobile
 	property string wasteExtraDatesURL
 	property string wasteExtraIconsURL
 	property variant iconLabelsJson : {}
@@ -350,10 +354,16 @@ App {
 		if (wasteCollector == "32") {
 			readGroningen();
 		}
+		if (wasteCollector == "33") { 		//bar-afbalbeheer.nl
+			read2goMobile();
+		}
+		if (wasteCollector == "34") {		// twentemilieu.nl
+			read2goMobile();
+		}
 
 	}
 
-		function wasteTypeMijnafvalwijzer(shortName) {
+	function wasteTypeMijnafvalwijzer(shortName) {
 			switch (shortName) {
 				case "grofvuil": return 8;
 				case "grofvuil\\/oud ijzer": return 8;
@@ -561,6 +571,17 @@ App {
 		return "?";
 	}
 
+	function wasteType2goMobile(shortName) {
+		switch (shortName) {
+			case "GREEN": return 3;		//groente/fruit	
+			case "PAPER": return 2;		//papier
+			case "PACKAGES": return 1;		//pmd
+			case "GREY": return 0;		//restafval
+			default: break;
+		}
+		return "?";
+	}
+
 	function fullMonth(monthNum) {
 		switch (monthNum) {
 			case "01": return "januari";
@@ -598,6 +619,87 @@ App {
 				}
 			}
 		}
+	}
+
+	function read2goMobile() {
+
+		if (wasteCollector == "33") {   //barAfvalbeheer.nl
+	       		var params = "companyCode=bb58e633-de14-4b2a-9941-5bc419f1c4b0&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
+		}
+		if (wasteCollector == "34") {   //twentemilieu.nl
+	       		var params = "companyCode=8d97bb56-5afd-4cbc-a651-b4f7314264b4&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
+		}
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
+        	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        	xmlhttp.setRequestHeader("Content-length", params.length);
+        	xmlhttp.setRequestHeader("Connection", "close");
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+				addressJson = JSON.parse(xmlhttp.responseText);
+				read2goMobileCalendar(addressJson['dataList'][0]['UniqueId']);
+			}
+		}
+		xmlhttp.send(params);
+	}
+
+	function read2goMobileCalendar(uniqueId) {
+
+		var now = new Date;
+		var strMonNow = now.getMonth() + 1;
+		if (strMonNow < 10) {
+			strMonNow = "0" + strMonNow;
+		}
+		var strDayNow = now.getDate();
+		if (strDayNow < 10) {
+			strDayNow = "0" + strDayNow;
+		}
+
+		var later = new Date(now.getTime() + 7772000000); // 3 months later
+		var strMonLater = later.getMonth() + 1;
+		if (strMonLater < 10) {
+			strMonLater = "0" + strMonLater;
+		}
+		var strDayLater = later.getDate();
+		if (strDayLater < 10) {
+			strDayLater = "0" + strDayLater;
+		}
+
+		var startDate = now.getFullYear() + "-" + strMonNow + "-" +  strDayNow; 
+		var endDate = later.getFullYear() + "-" + strMonLater + "-" +  strDayLater;
+
+		if (wasteCollector == "33") {   //barAfvalbeheer.nl
+    	   		var params = "companyCode=bb58e633-de14-4b2a-9941-5bc419f1c4b0&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		}
+		if (wasteCollector == "34") {   //twentemilieu.nl
+    	   		var params = "companyCode=8d97bb56-5afd-4cbc-a651-b4f7314264b4&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		}
+
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/GetCalendar", true);
+        	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        	xmlhttp.setRequestHeader("Content-length", params.length);
+        	xmlhttp.setRequestHeader("Connection", "close");
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+				wasteDatesString = "";
+				var wasteType = "";
+				var mobileAfvalbeheerDates = [];
+				calendar2goMobile = JSON.parse(xmlhttp.responseText)
+				for (var i= 0; i < calendar2goMobile['dataList'].length; i++) {
+					for (var j= 0; j < calendar2goMobile['dataList'][i]['pickupDates'].length; j++) {
+						mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "-" + wasteType2goMobile(calendar2goMobile['dataList'][i]['_pickupTypeText']));
+					}
+				}
+				var tmp = WastecollectionJS.sortArray2(mobileAfvalbeheerDates, extraDates);
+
+				for (i = 0; i < tmp.length; i++) {
+					wasteDatesString = wasteDatesString + tmp[i] + "\n";
+				}
+				writeWasteDates();
+			}
+		}
+		xmlhttp.send(params);
 	}
 
 	function readOmrin() {
@@ -1185,9 +1287,6 @@ App {
 						while (i > 0) {
 							j = aNode.indexOf("SUMMARY", i);
 							k = aNode.indexOf("\n", j);
-
-							console.log("*********** loop cyclus:" + i + "-" + j + "-" + k);
-
 
 							if (wasteCollector == "7") {  //dar.nl
 								wasteType = wasteTypeDarNL(aNode.substring(j+8, j+13));
@@ -1985,7 +2084,7 @@ App {
 		id: datetimeTimerWaste
 		repeat: true
 		running: false
-		interval: isNxt ? 60000 : 180000	//wait (1)20 sec after reboot before for triggering, after that only at wasteIconHour (default 18:00) daily
+		interval: isNxt ? 20000 : 180000	//wait (1)20 sec after reboot before for triggering, after that only at wasteIconHour (default 18:00) daily
 
 		onTriggered: {
 			updateWasteIcon("yes");	//update data on tile

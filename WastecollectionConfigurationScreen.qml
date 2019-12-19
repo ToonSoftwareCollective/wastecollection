@@ -116,10 +116,10 @@ Screen {
 
 	function validateAfvalverwerker(text, isFinalString) {
 		if (isFinalString) {
-			if (parseInt(text) < 33)
+			if (parseInt(text) < 35)
 				return null;
 			else
-				return {title: "Ongeldig keuze", content: "Voer een getal in kleiner dan 32"};
+				return {title: "Ongeldig keuze", content: "Voer een getal in kleiner dan 35"};
 		}
 		return null;
 	}
@@ -217,6 +217,8 @@ Screen {
 					"              drimmelen.nl\n" +
 					"              afvalstoffendienstkalender.nl\n" +
 					"              venlo.nl\n" +
+					"              bar-afbalbeheer.nl\n" +
+					"              twentemilieu.nl\n" +
 					"              deafvalapp.nl" , "Sluiten");
 		}
 	}
@@ -322,6 +324,8 @@ Screen {
 					"              drimmelen.nl\n" +
 					"              afvalstoffendienstkalender.nl\n" +
 					"              venlo.nl\n" +
+					"              bar-afbalbeheer.nl\n" +
+					"              twentemilieu.nl\n" +
 					"              deafvalapp.nl" , "Sluiten");
 		}
 	}
@@ -387,8 +391,9 @@ Screen {
 					"              23 : alphenaandenrijn.nl  24:avalex.nl\n" +
 					"              25 : area-afval.nl        26: gad.nl\n" +
 					"              27 : venlo.nl             28: rd4info.nl (Toon1)\n" +
-					"              29 : veldhoven.nl            30: meppel.nl" +
-					"              31 : mijnafvalwijzer.nl (html) 32: groningen.nl" +
+					"              29 : veldhoven.nl            30: meppel.nl\n" +
+					"              31 : mijnafvalwijzer.nl (html)32: groningen.nl\n" +
+					"              33 : bar-afvalbeheer.nl   34: twentemilieu.nl\n" +
 					"               0 : overig (handmatig)" , "Sluiten");
 		}
 	}

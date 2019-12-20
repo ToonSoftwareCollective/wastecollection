@@ -1,3 +1,6 @@
+4.31
+- fixed bug introduced in 4.30
+
 4.30
 - added provide bar-afvalbeheer.nl (Albrandswaard, Barendrecht, Ridderkerk), provider 33
 - added twentemilieu.nl, provider 34

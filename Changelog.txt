@@ -1,3 +1,6 @@
+4.32
+- added fix for new format venlo.nl ics file (provider 27)
+
 4.31
 - fixed bug introduced in 4.30
 

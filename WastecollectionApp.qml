@@ -1311,7 +1311,7 @@ App {
 											wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));
 										} else {
 											if (wasteCollector == "27") { //venlo.nl  (split Restafval/pmd)
-												wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+23, k-2));
+												wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+23, k-1));
 												if (aNode.substring(j+23, j+36) == "Restafval/PMD") {
 													wasteType = "0"; // Restafval
 													cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);

@@ -294,7 +294,7 @@ App {
 			readArnhem();
 		}
 		if (wasteCollector == "14") {
-			readRova();
+			readMijnafvalwijzerHTML();
 		}
 		if (wasteCollector == "15") {
 			readAfvalalert();
@@ -536,16 +536,6 @@ App {
 			case "Ophaaldag Pap": return 2;		//papier en karton
 			case "Ophaaldag Pla": return 1;		//plastic, drankpakken, metaal
 			case "Ophaaldag Tex": return 5;		//textiel
-			default: break;
-		}
-		return "?";
-	}
-
-	function wasteTypeRova(shortName) {
-		switch (shortName) {
-			case "GFT": return 3;		//groente/fruit	
-			case "REST": return 0;		//huisvuil
-			case "PAPIER": return 2;	//papier en karton
 			default: break;
 		}
 		return "?";
@@ -956,47 +946,6 @@ App {
 		xmlhttp.send();
 	}
 
-	function readRova() {
-
-		var i = 0;
-		var j = 0;
-		var k = 0;
-		var l = 0;
-		wasteDatesString = "";
-		var wasteType = "";
-		var cureAfvalbeheerDates = [];
-
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-				var aNode = xmlhttp.responseText;
-
-				// read specific waste collection dates
-
-				i = aNode.indexOf("afvalkalenderData");
-				if ( i > 0 ) {
-					i = i + 19;
-					l = aNode.indexOf("'", i+5);
-					while (i < l) {
-						j = aNode.indexOf(":", i);
-						k = aNode.indexOf("/", i);
-						wasteType = wasteTypeRova(aNode.substring(j+1, k));
-						cureAfvalbeheerDates.push(aNode.substring(i, i+10) + "," + wasteType);
-						i = 1 + aNode.indexOf(",", k);
-					}
-				}
-				var tmp = WastecollectionJS.sortArray2(cureAfvalbeheerDates, extraDates);
-
-				for (i = 0; i < tmp.length; i++) {
-					wasteDatesString = wasteDatesString + tmp[i] + "\n";
-				}
-				writeWasteDates();
-			}
-		}
-		xmlhttp.open("GET", "file:///root/waste/ROVA Afvalkalender.htm", true);
-		xmlhttp.send();
-	}
-
 	function readDenHaag() {
 
 		var i = 0;
@@ -1332,6 +1281,7 @@ App {
 							if (i > 0) {
 								if (aNode.substring(i, i+18) == "DTSTART;VALUE=DATE") i = i + 11;
 							}
+
 						}
 					}	
 				}
@@ -1491,10 +1441,20 @@ App {
 							j = aNode.indexOf('"', i);
 							wasteCodeHTML = aNode.substring(i + 7,j);
 							j = aNode.indexOf('"' + wasteCodeHTML, i);
-							k = aNode.indexOf('>', j);
-							l = aNode.indexOf('<', j);
-							resultDates =  aNode.substring(k + 1, l).split(" ");
-							wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
+
+							if (wasteCollector == "31") {
+								k = aNode.indexOf('>', j);
+								l = aNode.indexOf('<', j);
+								resultDates =  aNode.substring(k + 1, l).split(" ");
+								wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
+							}
+
+							if (wasteCollector == "14") {
+								k = aNode.indexOf('span-line-break', j);
+								l = aNode.indexOf('<', k);
+								resultDates =  aNode.substring(k + 17, l).split(" ");
+								wasteDateYMD = resultDates[3] + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
+							}
 
 							if ((wasteCodeHTML == "rest- & gft-afval") || (wasteCodeHTML == "rest-gft") || (wasteCodeHTML == "restafval & gft") || (wasteCodeHTML == "restgft")) {   //split rest & gft in two dates
 								wasteType = wasteTypeMijnafvalwijzer("restafval");
@@ -1528,7 +1488,12 @@ App {
 				}
 			}
 		}
-		xmlhttp.open("GET", "http://www.mijnafvalwijzer.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
+		if (wasteCollector == "14") {
+			xmlhttp.open("GET", "https://afvalkalender.rova.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
+		}
+		if (wasteCollector == "31") {
+			xmlhttp.open("GET", "http://www.mijnafvalwijzer.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
+		}
 		xmlhttp.send();
 	}
 

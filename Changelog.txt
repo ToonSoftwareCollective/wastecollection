@@ -1,3 +1,8 @@
+4.33
+- implemented new routine for rova.nl after they changed their website.
+  data is retrieved online now: enter zipcode and housenr in the settings screen (provider 14)
+  no need to download the calender from their webpages manually anymore.
+
 4.32
 - added fix for new format venlo.nl ics file (provider 27)
 

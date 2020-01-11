@@ -1,3 +1,6 @@
+4.34
+- added hellendoorn.nl, provider 36, enter your zipcode/housenr in the settings screen
+
 4.33
 - implemented new routine for rova.nl after they changed their website.
   data is retrieved online now: enter zipcode and housenr in the settings screen (provider 14)

@@ -365,6 +365,9 @@ App {
 		if (wasteCollector == "35") {
 			read2goMobile();
 		}
+		if (wasteCollector == "36") {
+			read2goMobile();
+		}
 	}
 
 	function wasteTypeMijnafvalwijzer(shortName) {
@@ -626,6 +629,9 @@ App {
 		if (wasteCollector == "35") {   //reinis.nl
 	       		var params = "companyCode=9dc25c8a-175a-4a41-b7a1-83f237a80b77&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
+		if (wasteCollector == "36") {   //hellendoorn.nl
+	       		var params = "companyCode=24434f5b-7244-412b-9306-3a2bd1e22bc1&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
+		}
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
         	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -673,6 +679,9 @@ App {
 		}
 		if (wasteCollector == "35") {   //reinis.nl
     	   		var params = "companyCode=9dc25c8a-175a-4a41-b7a1-83f237a80b77&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		}
+		if (wasteCollector == "36") {   //hellendoorn.nl
+	       		var params = "companyCode=24434f5b-7244-412b-9306-3a2bd1e22bc1&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
 		}
 
 		var xmlhttp = new XMLHttpRequest();

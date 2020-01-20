@@ -1,3 +1,11 @@
+4.35
+- fixed rova.nl (website changed a bit)
+- added alkmaar (stadswerk072.nl). Select provider 37 and fill in your calendaf ICS number
+  Get you calendar ICS number by visiting stadswerk072.nl and login with your zipcode/housenr.
+  Click 'Naar maand en jaar kalender'
+  Click 'Zet inzameldata in agenda'
+  Look at the link under 'Synchroniseren'and find your calendar ICS number at the end of the URL.
+
 4.34
 - added hellendoorn.nl, provider 36, enter your zipcode/housenr in the settings screen
 

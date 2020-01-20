@@ -26,6 +26,7 @@ Screen {
 			case "23" : return "https://afvalkalender.alphenaandenrijn.nl/ical/";
 			case "24" : return "https://www.avalex.nl/ical/";
 			case "26" : return "https://inzamelkalender.gad.nl/ical/";
+			case "37" : return "https://inzamelkalender.stadswerk072.nl/ical/";
 			default: break;
 		}
 		return "---";
@@ -116,10 +117,10 @@ Screen {
 
 	function validateAfvalverwerker(text, isFinalString) {
 		if (isFinalString) {
-			if (parseInt(text) < 37)
+			if (parseInt(text) < 38)
 				return null;
 			else
-				return {title: "Ongeldig keuze", content: "Voer een getal in kleiner dan 37"};
+				return {title: "Ongeldig keuze", content: "Voer een getal in kleiner dan 38"};
 		}
 		return null;
 	}
@@ -157,6 +158,7 @@ Screen {
 		id: title
 		x: isNxt ? 38 : 30
 		y: 10
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		text: "Invoeren postcode (formaat 1111AA)"
 		font.pixelSize: isNxt ? 20 : 16
 		font.family: qfont.semiBold.name
@@ -169,7 +171,7 @@ Screen {
 		height: isNxt ? 44 : 35
 		leftTextAvailableWidth: isNxt ? 250 : 200
 		leftText: "Postcode:"
-
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		anchors {
 			left: title.left
 			top: title.bottom
@@ -185,7 +187,7 @@ Screen {
 		id: wasteZipcodeLabelButton;
 		width: isNxt ? 50 : 40
 		iconSource: "qrc:/tsc/edit.png"
-
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		anchors {
 			left: wasteZipcodeLabel.right
 			leftMargin: 6
@@ -205,6 +207,7 @@ Screen {
 		anchors.left: wasteZipcodeLabelButton.right
 		anchors.bottom: wasteZipcodeLabelButton.bottom
 		anchors.leftMargin: 10
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		onClicked: {
 			qdialog.showDialog(qdialog.SizeLarge, "Postcode", "Alleen invoeren voor de volgende afvalverwerkers:\n" +
 					"              mijnafvalwijzer.nl\n" +
@@ -231,7 +234,7 @@ Screen {
 		height: isNxt ? 44 : 35
 		leftTextAvailableWidth: isNxt ? 250 : 200
 		leftText: "Straatnr(BE):"
-
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		anchors {
 			left: title.left
 			top: wasteZipcodeLabel.bottom
@@ -247,7 +250,7 @@ Screen {
 		id: wasteStreetLabelButton;
 		width: isNxt ? 50 : 40
 		iconSource: "qrc:/tsc/edit.png"
-
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		anchors {
 			left: wasteStreetLabel.right
 			leftMargin: 6
@@ -267,6 +270,7 @@ Screen {
 		anchors.left: wasteStreetLabelButton.right
 		anchors.bottom: wasteStreetLabelButton.bottom
 		anchors.leftMargin: 10
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		onClicked: {
 			qdialog.showDialog(qdialog.SizeLarge, "Straat", "Alleen invoeren voor de volgende afvalverwerkers:\n" +
 					"              limburg.net\n" +
@@ -280,7 +284,7 @@ Screen {
 		height: isNxt ? 44 : 35
 		leftTextAvailableWidth: isNxt ? 250 : 200
 		leftText: "Huisnummer:"
-
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		anchors {
 			left: btnHelpZipcode.left
 			leftMargin : 40
@@ -296,7 +300,7 @@ Screen {
 		id: wasteHouseNrLabelButton;
 		width: isNxt ? 50 : 40
 		iconSource: "qrc:/tsc/edit.png"
-
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		anchors {
 			left: wasteHouseNrLabel.right
 			leftMargin: 6
@@ -315,6 +319,7 @@ Screen {
 		anchors.left: enableCreateICSToggle.right
 		anchors.bottom: wasteHouseNrLabelButton.bottom
 		anchors.leftMargin: 10
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		onClicked: {
 			qdialog.showDialog(qdialog.SizeLarge, "Huisnummer", "Alleen invoeren voor de volgende afvalverwerkers:\n" +
 					"              mijnafvalwijzer.nl\n" +
@@ -399,6 +404,7 @@ Screen {
 					"              31 : mijnafvalwijzer.nl (html)32: groningen.nl\n" +
 					"              33 : bar-afvalbeheer.nl   34: twentemilieu.nl\n" +
 					"              35:  reinis.nl           36:hellendoorn.nl\n" +
+					"              37:  stadswerk072.nl\n" +
 					"               0 : overig (handmatig)" , "Sluiten");
 		}
 	}
@@ -466,7 +472,7 @@ Screen {
 		font.pixelSize: 16
 		font.family: qfont.semiBold.name
 		color: colors.rbTitle
-
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		width: wasteZipcodeLabel.width
 		height: isNxt ? 44 : 35
 		anchors {
@@ -481,6 +487,7 @@ Screen {
 		text: "?"
 		anchors.left: btnHelpCollectors.left
 		anchors.bottom: explainWasteCalendar.bottom
+		visible : (wasteICSIdLabel.leftText.length < 5)
 		onClicked: {
 			qdialog.showDialog(qdialog.SizeLarge, "Downloaden afvalkalender", "Voor de volgende afvalverwerkers moet de afvalkalender " +
 					"worden gedownload via een cron job en wget. " +
@@ -619,7 +626,7 @@ Screen {
 		anchors.bottom: enableSystrayToggle.bottom
 		anchors.leftMargin: 10
 		onClicked: {
-			qdialog.showDialog(qdialog.SizeLarge, "Icons in systeem tray", "Zet de switch aan als je een icon in de systray wilt hebben voor directe toegang tot het detailscherm." , "Sluiten");
+			qdialog.showDialog(qdialog.SizeLarge, "App-icons in system tray", "Zet de switch aan als je een icon in de systray wilt hebben voor directe toegang tot het detailscherm." , "Sluiten");
 		}
 	}
 
@@ -627,7 +634,7 @@ Screen {
 		id: enableThermostatModLabel
 		width: wasteHouseNrLabel.width
 		height: isNxt ? 44 : 35
-		leftText: "Afvalicons tonen in thermostaat"
+		leftText: "Afvalicons in thermostaat"
 		leftTextAvailableWidth: wasteHouseNrLabel.width
 		anchors {
 			left: btnHelpZipcode.left

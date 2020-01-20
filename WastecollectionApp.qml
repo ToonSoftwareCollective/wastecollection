@@ -46,6 +46,8 @@ App {
 			//				33: "bar-afvalbeheer.nl"
 			//				34: "twentemilieu.nl"
 			//				35: "reinis.nl"
+			//				36: "hellendoorn.nl"
+			//				37: "stadswerk072.nl"
 			//				0: "overig (handmatig)"
 			//		
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net
@@ -367,6 +369,9 @@ App {
 		}
 		if (wasteCollector == "36") {
 			read2goMobile();
+		}
+		if (wasteCollector == "37") {
+			readCureAfvalbeheerNew();
 		}
 	}
 
@@ -1334,6 +1339,9 @@ App {
 		if (wasteCollector == "27") {
 			xmlhttp.open("GET", "https://www.venlo.nl/trash-removal-calendar/ical/" + wasteZipcode + "/" + wasteHouseNr, true);
 		}
+		if (wasteCollector == "37") {
+			xmlhttp.open("GET", "https://inzamelkalender.stadswerk072.nl/ical/" + wasteICSId, true);
+		}
 		xmlhttp.send();
 	}
                                                
@@ -1462,7 +1470,7 @@ App {
 								k = aNode.indexOf('span-line-break', j);
 								l = aNode.indexOf('<', k);
 								resultDates =  aNode.substring(k + 17, l).split(" ");
-								wasteDateYMD = resultDates[3] + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
+								wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
 							}
 
 							if ((wasteCodeHTML == "rest- & gft-afval") || (wasteCodeHTML == "rest-gft") || (wasteCodeHTML == "restafval & gft") || (wasteCodeHTML == "restgft")) {   //split rest & gft in two dates
@@ -1498,7 +1506,7 @@ App {
 			}
 		}
 		if (wasteCollector == "14") {
-			xmlhttp.open("GET", "https://afvalkalender.rova.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
+			xmlhttp.open("GET", "https://inzamelkalender.rova.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
 		}
 		if (wasteCollector == "31") {
 			xmlhttp.open("GET", "http://www.mijnafvalwijzer.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);

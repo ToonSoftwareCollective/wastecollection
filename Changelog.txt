@@ -1,3 +1,6 @@
+4.36
+- changed veldhoven.nl (29) from manual to automatic retrieval of the waste calendar
+
 4.35
 - fixed rova.nl (website changed a bit)
 - added alkmaar (stadswerk072.nl). Select provider 37 and fill in your calendaf ICS number

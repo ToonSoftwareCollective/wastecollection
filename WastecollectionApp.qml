@@ -350,7 +350,7 @@ App {
 			readCureAfvalbeheer();
 		}
 		if (wasteCollector == "29") {		//only waste description and date formatting differs from cure-afvalbeheer
-			readCureAfvalbeheer();
+			readCureAfvalbeheerNew();
 		}
 		if (wasteCollector == "30") {
 			readMeppel();
@@ -1241,6 +1241,7 @@ App {
 		wasteDatesString = "";
 		var wasteType = "";
 		var cureAfvalbeheerDates = [];
+		var toDay = new Date();
 
 		var xmlhttp = new XMLHttpRequest();
 
@@ -1338,6 +1339,9 @@ App {
 		}
 		if (wasteCollector == "27") {
 			xmlhttp.open("GET", "https://www.venlo.nl/trash-removal-calendar/ical/" + wasteZipcode + "/" + wasteHouseNr, true);
+		}
+		if (wasteCollector == "29") {
+			xmlhttp.open("GET", "https://www.veldhoven.nl/afvalkalender/" + toDay.getFullYear() + "/" + wasteZipcode + "-" + wasteHouseNr + ".ics", true);
 		}
 		if (wasteCollector == "37") {
 			xmlhttp.open("GET", "https://inzamelkalender.stadswerk072.nl/ical/" + wasteICSId, true);

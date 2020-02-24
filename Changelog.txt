@@ -1,3 +1,6 @@
+4.37
+- added almere.nl. Select provider 38 and enter your zipcode / housenr
+
 4.36
 - changed veldhoven.nl (29) from manual to automatic retrieval of the waste calendar
 

@@ -48,6 +48,7 @@ App {
 			//				35: "reinis.nl"
 			//				36: "hellendoorn.nl"
 			//				37: "stadswerk072.nl"
+			//				38: "almere.nl"
 			//				0: "overig (handmatig)"
 			//		
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net
@@ -373,6 +374,9 @@ App {
 		if (wasteCollector == "37") {
 			readCureAfvalbeheerNew();
 		}
+		if (wasteCollector == "38") {
+			read2goMobile();
+		}
 	}
 
 	function wasteTypeMijnafvalwijzer(shortName) {
@@ -637,6 +641,9 @@ App {
 		if (wasteCollector == "36") {   //hellendoorn.nl
 	       		var params = "companyCode=24434f5b-7244-412b-9306-3a2bd1e22bc1&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
+		if (wasteCollector == "38") {   //almere.nl
+	       		var params = "companyCode=53d8db94-7945-42fd-9742-9bbc71dbe4c1&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
+		}
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
         	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -687,6 +694,9 @@ App {
 		}
 		if (wasteCollector == "36") {   //hellendoorn.nl
 	       		var params = "companyCode=24434f5b-7244-412b-9306-3a2bd1e22bc1&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		}
+		if (wasteCollector == "38") {   //almere.nl
+	       		var params = "companyCode=53d8db94-7945-42fd-9742-9bbc71dbe4c1&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
 		}
 
 		var xmlhttp = new XMLHttpRequest();

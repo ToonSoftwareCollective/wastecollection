@@ -712,7 +712,12 @@ App {
 				calendar2goMobile = JSON.parse(xmlhttp.responseText)
 				for (var i= 0; i < calendar2goMobile['dataList'].length; i++) {
 					for (var j= 0; j < calendar2goMobile['dataList'][i]['pickupDates'].length; j++) {
-						mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "-" + wasteType2goMobile(calendar2goMobile['dataList'][i]['_pickupTypeText']));
+						if (calendar2goMobile['dataList'][i]['_pickupTypeText'] == "GREENGREY") {
+							mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "-" + wasteType2goMobile("GREEN"));
+							mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "-" + wasteType2goMobile("GREY"));
+						} else {
+							mobileAfvalbeheerDates.push(calendar2goMobile['dataList'][i]['pickupDates'][j].substring(0,10) + "-" + wasteType2goMobile(calendar2goMobile['dataList'][i]['_pickupTypeText']));
+						}
 					}
 				}
 				var tmp = WastecollectionJS.sortArray2(mobileAfvalbeheerDates, extraDates);

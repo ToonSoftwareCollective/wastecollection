@@ -1,3 +1,6 @@
+4.38
+- fixed combined collection dates for GFT and Restafval for Almere
+
 4.37
 - added almere.nl. Select provider 38 and enter your zipcode / housenr
 

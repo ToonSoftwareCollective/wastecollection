@@ -1,3 +1,6 @@
+4.39
+- dimmableColors update
+
 4.38
 - fixed combined collection dates for GFT and Restafval for Almere
 

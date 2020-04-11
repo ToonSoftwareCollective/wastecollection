@@ -324,7 +324,7 @@ App {
 			readCureAfvalbeheerNew();		//only waste description and date formatting differs from cure-afvalbeheer
 		}
 		if (wasteCollector == "16") {   
-			readCureAfvalbeheerNew();		//only waste description differs from cure-afvalbeheer
+			read2goMobile();			//only waste description differs from cure-afvalbeheer
 		}
 		if (wasteCollector == "18") {   
 			readCureAfvalbeheerNew();		//only waste description differs from cure-afvalbeheer
@@ -644,6 +644,9 @@ App {
 		if (wasteCollector == "38") {   //almere.nl
 	       		var params = "companyCode=53d8db94-7945-42fd-9742-9bbc71dbe4c1&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
+		if (wasteCollector == "16") {   //meerlanden.nl
+	       		var params = "companyCode=800bf8d7-6dd1-4490-ba9d-b419d6dc8a45&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
+		}
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
         	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -697,6 +700,9 @@ App {
 		}
 		if (wasteCollector == "38") {   //almere.nl
 	       		var params = "companyCode=53d8db94-7945-42fd-9742-9bbc71dbe4c1&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		}
+		if (wasteCollector == "16") {   //meerlanden.nl
+	       		var params = "companyCode=800bf8d7-6dd1-4490-ba9d-b419d6dc8a45&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
 		}
 
 		var xmlhttp = new XMLHttpRequest();
@@ -1336,9 +1342,6 @@ App {
 		}
 		if (wasteCollector == "12") {
 			xmlhttp.open("GET", "https://inzamelschema.rmn.nl/ical/" + wasteICSId, true);
-		}
-		if (wasteCollector == "16") {
-			xmlhttp.open("GET", "https://afvalkalender.meerlanden.nl/ical/" + wasteICSId, true);
 		}
 		if (wasteCollector == "18") {
 			xmlhttp.open("GET", "http://afvalkalender.zrd.nl/ical/" + wasteICSId, true);

@@ -1,4 +1,5 @@
-4.39
+4.39/4.40
+- fix for meerlanden.nl(16) due to change of webservice provider
 - dimmableColors update
 
 4.38

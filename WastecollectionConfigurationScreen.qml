@@ -21,7 +21,6 @@ Screen {
 			case "6" : return "https://inzamelkalender.hvcgroep.nl/ical/";
 			case "7" : return "https://afvalkalender.dar.nl/ical/";
 			case "12" : return "https://inzamelschema.rmn.nl/ical/";
-			case "16" : return "https://afvalkalender.meerlanden.nl/ical/";
 			case "18" : return "http://afvalkalender.zrd.nl/ical/";
 			case "23" : return "https://afvalkalender.alphenaandenrijn.nl/ical/";
 			case "24" : return "https://www.avalex.nl/ical/";
@@ -225,6 +224,7 @@ Screen {
 					"              reinis.nl\n" +
 					"              hellendoorn.nl\n" +
 					"              almere.nl\n" +
+					"              meerlanden.nl\n" +
 					"              deafvalapp.nl" , "Sluiten");
 		}
 	}
@@ -335,6 +335,7 @@ Screen {
 					"              bar-afbalbeheer.nl\n" +
 					"              twentemilieu.nl\n" +
 					"              reinis.nl\n" +
+					"              meerlanden.nl\n" +
 					"              hellendoorn.nl\n" +
 					"              almere.nl\n" +
 					"              deafvalapp.nl" , "Sluiten");

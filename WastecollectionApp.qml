@@ -390,6 +390,7 @@ App {
 				case "gft+e(tensresten)": return 3;
 				case "opk": return 2;
 				case "pmd": return 1;
+				case "pbd": return 1;
 				case "gft ": return 3;
 				case "groente, fruit en tuinafval": return 3;
 				case "pbd": return 2;

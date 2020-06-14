@@ -631,22 +631,23 @@ App {
 	function read2goMobile() {
 
 		if (wasteCollector == "33") {   //barAfvalbeheer.nl
-	       		var params = '{"companyCode": "bb58e633-de14-4b2a-9941-5bc419f1c4b0", "postCode": ' + wasteZipcode + ', "houseNumber": ' + wasteHouseNr + '}';
+	       		var params = '{"companyCode": "bb58e633-de14-4b2a-9941-5bc419f1c4b0", "postCode": "' + wasteZipcode + '", "houseNumber": ' + wasteHouseNr + '}';
 		}
 		if (wasteCollector == "34") {   //twentemilieu.nl
-	       		var params = '{"companyCode": "8d97bb56-5afd-4cbc-a651-b4f7314264b4", "postCode": ' + wasteZipcode + ', "houseNumber": ' + wasteHouseNr + '}';
+	       		var params = '{"companyCode": "8d97bb56-5afd-4cbc-a651-b4f7314264b4", "postCode": "' + wasteZipcode + '", "houseNumber": ' + wasteHouseNr + '}';
 		}
 		if (wasteCollector == "35") {   //reinis.nl
-	       		var params = '{"companyCode": "9dc25c8a-175a-4a41-b7a1-83f237a80b77", "postCode": ' + wasteZipcode + ', "houseNumber": ' + wasteHouseNr + '}';
+	       		var params = '{"companyCode": "9dc25c8a-175a-4a41-b7a1-83f237a80b77", "postCode": "' + wasteZipcode + '", "houseNumber": ' + wasteHouseNr + '}';
+			console.log("********* 35 par:" + params);
 		}
 		if (wasteCollector == "36") {   //hellendoorn.nl
-	       		var params = '{"companyCode": "24434f5b-7244-412b-9306-3a2bd1e22bc1", "postCode": ' + wasteZipcode + ', "houseNumber": ' + wasteHouseNr + '}';
+	       		var params = '{"companyCode": "24434f5b-7244-412b-9306-3a2bd1e22bc1", "postCode": "' + wasteZipcode + '", "houseNumber": ' + wasteHouseNr + '}';
 		}
 		if (wasteCollector == "38") {   //almere.nl
-	       		var params = '{"companyCode": "53d8db94-7945-42fd-9742-9bbc71dbe4c1", "postCode": ' + wasteZipcode + ', "houseNumber": ' + wasteHouseNr + '}';
+	       		var params = '{"companyCode": "53d8db94-7945-42fd-9742-9bbc71dbe4c1", "postCode": "' + wasteZipcode + '", "houseNumber": ' + wasteHouseNr + '}';
 		}
 		if (wasteCollector == "16") {   //meerlanden.nl
-	       		var params = '{"companyCode": "800bf8d7-6dd1-4490-ba9d-b419d6dc8a45", "postCode": ' + wasteZipcode + ', "houseNumber": ' + wasteHouseNr + '}';
+	       		var params = '{"companyCode": "800bf8d7-6dd1-4490-ba9d-b419d6dc8a45", "postCode": "' + wasteZipcode + '", "houseNumber": ' + wasteHouseNr + '}';
 		}
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
@@ -655,6 +656,7 @@ App {
         	xmlhttp.setRequestHeader("Connection", "close");
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+				console.log("********* result:" + xmlhttp.responseText);
 				addressJson = JSON.parse(xmlhttp.responseText);
 				read2goMobileCalendar(addressJson['dataList'][0]['UniqueId']);
 			}
@@ -694,7 +696,8 @@ App {
  	       		var params = '{"companyCode": "8d97bb56-5afd-4cbc-a651-b4f7314264b4", "uniqueAddressId": ' + uniqueId + ', "startDate": ' + startDate + ', "endDate": ' + endDate +'}';
 		}
 		if (wasteCollector == "35") {   //reinis.nl
-	       		var params = '{"companyCode": "9dc25c8a-175a-4a41-b7a1-83f237a80b77", "uniqueAddressId": ' + uniqueId + ', "startDate": ' + startDate + ', "endDate": ' + endDate +'}';
+	       		var params = '{"companyCode": "9dc25c8a-175a-4a41-b7a1-83f237a80b77", "uniqueAddressId": "' + uniqueId + '", "startDate": "' + startDate + '", "endDate": "' + endDate +'"}';
+			console.log("********* 35 par2:" + params);
 		}
 		if (wasteCollector == "36") {   //hellendoorn.nl
 	       		var params = '{"companyCode": "24434f5b-7244-412b-9306-3a2bd1e22bc1", "uniqueAddressId": ' + uniqueId + ', "startDate": ' + startDate + ', "endDate": ' + endDate +'}';
@@ -713,6 +716,7 @@ App {
         	xmlhttp.setRequestHeader("Connection", "close");
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+				console.log("********* result:" + xmlhttp.responseText);
 				wasteDatesString = "";
 				var wasteType = "";
 				var mobileAfvalbeheerDates = [];

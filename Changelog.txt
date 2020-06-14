@@ -1,3 +1,12 @@
+4.42
+- changed http calls for the waste2go platform (using json now), applicable to :
+     - barAfvalbeheer.nl
+     - twentemilieu.nl
+     - reinis.nl
+     - hellendoorn.nl
+     - almere.nl
+     - meerlanden.nl
+
 4.39/4.40
 - fix for meerlanden.nl(16) due to change of webservice provider
 - dimmableColors update

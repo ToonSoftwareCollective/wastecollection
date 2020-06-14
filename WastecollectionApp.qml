@@ -638,7 +638,6 @@ App {
 		}
 		if (wasteCollector == "35") {   //reinis.nl
 	       		var params = '{"companyCode": "9dc25c8a-175a-4a41-b7a1-83f237a80b77", "postCode": "' + wasteZipcode + '", "houseNumber": ' + wasteHouseNr + '}';
-			console.log("********* 35 par:" + params);
 		}
 		if (wasteCollector == "36") {   //hellendoorn.nl
 	       		var params = '{"companyCode": "24434f5b-7244-412b-9306-3a2bd1e22bc1", "postCode": "' + wasteZipcode + '", "houseNumber": ' + wasteHouseNr + '}';
@@ -656,7 +655,6 @@ App {
         	xmlhttp.setRequestHeader("Connection", "close");
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-				console.log("********* result:" + xmlhttp.responseText);
 				addressJson = JSON.parse(xmlhttp.responseText);
 				read2goMobileCalendar(addressJson['dataList'][0]['UniqueId']);
 			}
@@ -697,7 +695,6 @@ App {
 		}
 		if (wasteCollector == "35") {   //reinis.nl
 	       		var params = '{"companyCode": "9dc25c8a-175a-4a41-b7a1-83f237a80b77", "uniqueAddressId": "' + uniqueId + '", "startDate": "' + startDate + '", "endDate": "' + endDate +'"}';
-			console.log("********* 35 par2:" + params);
 		}
 		if (wasteCollector == "36") {   //hellendoorn.nl
 	       		var params = '{"companyCode": "24434f5b-7244-412b-9306-3a2bd1e22bc1", "uniqueAddressId": ' + uniqueId + ', "startDate": ' + startDate + ', "endDate": ' + endDate +'}';
@@ -716,7 +713,6 @@ App {
         	xmlhttp.setRequestHeader("Connection", "close");
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-				console.log("********* result:" + xmlhttp.responseText);
 				wasteDatesString = "";
 				var wasteType = "";
 				var mobileAfvalbeheerDates = [];

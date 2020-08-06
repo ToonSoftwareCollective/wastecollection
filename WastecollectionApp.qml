@@ -1723,17 +1723,29 @@ App {
 			if (xmlhttp.readyState == 4) {
 				if (xmlhttp.status == 200) {
 					var aNode = xmlhttp.responseText;
+
 					// read start index of all wastetypes
 
 					indexGFT = aNode.indexOf("GFT");
 					indexPAPIER = aNode.indexOf("PAPIER");
 					indexPLASTIC = aNode.indexOf("PLASTIC");
 					if (indexPLASTIC < 0) indexPLASTIC = aNode.indexOf("PMD");
+					if (indexPLASTIC < 0) indexPLASTIC = aNode.indexOf("PBP");
 					indexREST = aNode.indexOf("REST");
+					if (indexREST < 0) indexREST = aNode.indexOf("ZAK_BLAUW");
 
 
-					// find first dates in the future of each type - GFT
+					// find first dates in the future of each type - GFT for 2 years
  
+					if (indexGFT > -1) {
+						i = aNode.indexOf(';', indexGFT);
+						while (aNode.substring(i+7, i+9) == "20") {
+							fileDate = aNode.substring(i+7, i + 11) + "-" + aNode.substring(i+4, i+6) + "-" + aNode.substring(i+1, i+3);
+							deafvalappDates.push(fileDate + "_3")
+							i = aNode.indexOf(';', i+1);
+						}
+					}
+					indexGFT = aNode.indexOf("GFT", indexGFT + 10); //process second year block if available
 					if (indexGFT > -1) {
 						i = aNode.indexOf(';', indexGFT);
 						while (aNode.substring(i+7, i+9) == "20") {
@@ -1753,6 +1765,15 @@ App {
 							i = aNode.indexOf(';', i+1);
 						}
 					}
+					indexPAPIER = aNode.indexOf("PAPIER", indexPAPIER + 10);
+					if (indexPAPIER > -1) {
+						i = aNode.indexOf(';', indexPAPIER);
+						while (aNode.substring(i+7, i+9) == "20") {
+							fileDate = aNode.substring(i+7, i + 11) + "-" + aNode.substring(i+4, i+6) + "-" + aNode.substring(i+1, i+3);
+							deafvalappDates.push(fileDate + "_2")
+							i = aNode.indexOf(';', i+1);
+						}
+					}
 					
 					// find first dates in the future of each type - PLASTIC
 
@@ -1764,11 +1785,32 @@ App {
 							i = aNode.indexOf(';', i+1);
 						}
 					}
+					var indexPLASTIC2 = aNode.indexOf("PLASTIC", indexPLASTIC  + 10);
+					if (indexPLASTIC2 < 0) indexPLASTIC2 = aNode.indexOf("PMD", indexPLASTIC  + 10);
+					if (indexPLASTIC2 < 0) indexPLASTIC2 = aNode.indexOf("PBP", indexPLASTIC  + 10);
+					if (indexPLASTIC2 > -1) {
+						i = aNode.indexOf(';', indexPLASTIC2);
+						while (aNode.substring(i+7, i+9) == "20") {
+							fileDate = aNode.substring(i+7, i + 11) + "-" + aNode.substring(i+4, i+6) + "-" + aNode.substring(i+1, i+3);
+							deafvalappDates.push(fileDate + "_1")
+							i = aNode.indexOf(';', i+1);
+						}
+					}
 					
 					// find first dates in the future of each type - REST
 
 					if (indexREST > -1) {
 						i = aNode.indexOf(';', indexREST);
+						while (aNode.substring(i+7, i+9) == "20") {
+							fileDate = aNode.substring(i+7, i + 11) + "-" + aNode.substring(i+4, i+6) + "-" + aNode.substring(i+1, i+3);
+							deafvalappDates.push(fileDate + "_0")
+							i = aNode.indexOf(';', i+1);
+						}
+					}
+					var indexREST2 = aNode.indexOf("REST", indexREST + 10);
+					if (indexREST2 < 0) indexREST2 = aNode.indexOf("ZAK_BLAUW", indexREST + 10);
+					if (indexREST2 > -1) {
+						i = aNode.indexOf(';', indexREST2);
 						while (aNode.substring(i+7, i+9) == "20") {
 							fileDate = aNode.substring(i+7, i + 11) + "-" + aNode.substring(i+4, i+6) + "-" + aNode.substring(i+1, i+3);
 							deafvalappDates.push(fileDate + "_0")

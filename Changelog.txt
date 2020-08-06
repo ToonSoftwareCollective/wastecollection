@@ -1,3 +1,6 @@
+4.42
+- fix for the deafvalapp.nl (provider 2)
+
 4.39/4.40
 - fix for meerlanden.nl(16) due to change of webservice provider
 - dimmableColors update

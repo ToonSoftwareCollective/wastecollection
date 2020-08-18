@@ -395,12 +395,14 @@ App {
 				case "groente, fruit en tuinafval": return 3;
 				case "pbd": return 2;
 				case "restafval": return 0;
+				case "fijn huishoudelijk restafval": return 0;
 				case "takken": return 4;
 				case "kerstbomen": return 4;
 				case "papier & karton": return 2;
 				case "papier en karton": return 2;
 				case "plastic verpakking & drankkartons": return 1;
 				case "plastic, metalen en drankkartons": return 1;
+				case "plastic, blik en drankenkartons": return 1;
 				case "plastic": return 1;
 				case "grofvuil (op afroep)": return 8;
 				case "snoeihout (op afroep)": return 4;
@@ -1886,7 +1888,7 @@ App {
 	}
 
 	function wasteTypeFriendlyName(wasteCode) {
-		if (((wasteCode >= "0") && (wasteCode <= "9")) || (wasteCode == "!"))  {
+		if (((wasteCode >= "0") && (wasteCode <= "9")) || (wasteCode == "!") || (wasteCode == "z") || (wasteCode == "?"))  {
 			switch (wasteCode) {
 				case "9" : return "Kunststoffen";
 				case "8" : return "Groot vuil";
@@ -1900,6 +1902,7 @@ App {
 				case "0" : return "Restafval";
 				case "!" : return "BEST tas";
 				case "z" : return "Reinigen container";
+				case "?" : return "Onbekend";
 				default: break;
 			}
 		} else {

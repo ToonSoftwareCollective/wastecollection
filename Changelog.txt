@@ -1,3 +1,6 @@
+4.43
+- updated wastecollection category descriptions for Oosterhout (mijnafvalwijzer.nl)
+
 4.42
 - fix for the deafvalapp.nl (provider 2)
 

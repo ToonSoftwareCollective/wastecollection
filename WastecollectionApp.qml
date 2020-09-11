@@ -267,7 +267,7 @@ App {
 	function readWasteDates() {
 
 		if (wasteCollector == "1") {
-			readMijnafvalwijzer();
+			readMijnafvalwijzerHTML();
 		}
 		if (wasteCollector == "31") {
 			readMijnafvalwijzerHTML();
@@ -1484,19 +1484,10 @@ App {
 							wasteCodeHTML = aNode.substring(i + 7,j);
 							j = aNode.indexOf('"' + wasteCodeHTML, i);
 
-							if (wasteCollector == "31") {
-								k = aNode.indexOf('>', j);
-								l = aNode.indexOf('<', j);
-								resultDates =  aNode.substring(k + 1, l).split(" ");
-								wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
-							}
-
-							if (wasteCollector == "14") {
-								k = aNode.indexOf('span-line-break', j);
-								l = aNode.indexOf('<', k);
-								resultDates =  aNode.substring(k + 17, l).split(" ");
-								wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
-							}
+							k = aNode.indexOf('span-line-break', j);
+							l = aNode.indexOf('<', k);
+							resultDates =  aNode.substring(k + 1, l).split(" ");
+							wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
 
 							if ((wasteCodeHTML == "rest- & gft-afval") || (wasteCodeHTML == "rest-gft") || (wasteCodeHTML == "restafval & gft") || (wasteCodeHTML == "restgft")) {   //split rest & gft in two dates
 								wasteType = wasteTypeMijnafvalwijzer("restafval");
@@ -1517,6 +1508,8 @@ App {
 									mijnAfvalwijzerDates .push(wasteDateYMD + "," + wasteType);
 								}
 							}
+							console.log("Start Afvalwijzer: type:" + wasteType);
+
 
 							i = aNode.indexOf("#waste-", l);
 						}
@@ -1534,7 +1527,7 @@ App {
 			xmlhttp.open("GET", "https://inzamelkalender.rova.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
 		}
 		if (wasteCollector == "31") {
-			xmlhttp.open("GET", "http://www.mijnafvalwijzer.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
+			xmlhttp.open("GET", "https://www.mijnafvalwijzer.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
 		}
 		xmlhttp.send();
 	}

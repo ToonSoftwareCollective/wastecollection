@@ -1,3 +1,6 @@
+4.45
+- no need to change to wastecollector from 1 to 31 anymore for mijnafvalwijzer.nl
+
 4.44
 - fix voor mijnafvalwijzer.nl (the json interface is no longer supported, reverted back to the html option)
 

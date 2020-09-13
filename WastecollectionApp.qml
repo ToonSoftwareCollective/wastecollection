@@ -1526,7 +1526,7 @@ App {
 		if (wasteCollector == "14") {
 			xmlhttp.open("GET", "https://inzamelkalender.rova.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
 		}
-		if (wasteCollector == "31") {
+		if ((wasteCollector == "31") ||  (wasteCollector == "1")) {
 			xmlhttp.open("GET", "https://www.mijnafvalwijzer.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
 		}
 		xmlhttp.send();

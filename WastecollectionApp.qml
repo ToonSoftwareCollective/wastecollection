@@ -348,7 +348,7 @@ App {
 			readOmrin();
 		}
 		if (wasteCollector == "25") {		//only waste description and date formatting differs from cure-afvalbeheer
-			readCureAfvalbeheer();
+			readAreaAfval();
 		}
 		if (wasteCollector == "29") {		//only waste description and date formatting differs from cure-afvalbeheer
 			readCureAfvalbeheerNew();
@@ -414,6 +414,12 @@ App {
 
 	function wasteTypeCureAfvalbeheer(shortName) {
 		switch (shortName) {
+			case "De res": return 0;	//area-afval.nl
+			case "Het re": return 0;	//area-afval.nl
+			case "Zet uw": return 0;	//area-afval.nl
+			case "Het gf": return 3;	//area-afval.nl
+			case "De con": return 1;	//area-afval.nl
+			case "Groent": return 3;	//cyclusnv plus cureafvalbeheer gad.nl
 			case "Groent": return 3;	//cyclusnv plus cureafvalbeheer gad.nl
 			case "Groene": return 3;	//katwijk.nl
 			case "GFT wo": return 3;	//cranendonck.nl
@@ -1074,6 +1080,65 @@ App {
 
 	// cure-afvalbeheer via dseparate download of ICS file (old method)
 
+	function readAreaAfval() {
+	
+		var i = 0;
+		var j = 0;
+		var k = 0;
+		wasteDatesString = "";
+		var wasteType = "";
+		var cureAfvalbeheerDates = [];
+
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+				var aNode = xmlhttp.responseText;
+
+				// read specific waste collection dates
+				i = aNode.indexOf("DTSTART");
+
+				if (i > 0) {
+					if (aNode.substring(i, i+18) == "DTSTART;VALUE=DATE") i = i + 11;
+				}
+
+				if ( i > 0 ) {
+					while (i > 0) {
+						j = aNode.indexOf("SUMMARY", i);
+
+						wasteType = wasteTypeMeerlanden(aNode.substring(j+23, j+26)); //also for area-afval.nk
+						console.log("Area:" + wasteType + "-" + aNode.substring(j+23, j+26));
+						if (wasteType = "?") {
+							wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11)); //also for area-afval.nk
+							console.log("Area:" + wasteType + "-" + aNode.substring(j+8, j+11));
+						}
+						cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
+
+						k = aNode.indexOf("END:VEVENT", j);
+						if (k < 0) {
+							i = -1;
+						} else {
+							i = aNode.indexOf("DTSTART", k);
+						}
+
+						if (i > 0) {
+							if (aNode.substring(i, i+18) == "DTSTART;VALUE=DATE") i = i + 11;
+						}
+					}
+				}
+				var tmp = WastecollectionJS.sortArray2(cureAfvalbeheerDates, extraDates);
+
+				for (i = 0; i < tmp.length; i++) {
+					wasteDatesString = wasteDatesString + tmp[i] + "\n";
+				}
+				writeWasteDates();
+			}
+		}
+		xmlhttp.open("GET", "file:///root/waste/waste_calendar.ics", true);
+		xmlhttp.send();
+	}
+
+	// cure-afvalbeheer via dseparate download of ICS file (old method)
+
 	function readCureAfvalbeheer() {
 	
 		var i = 0;
@@ -1115,14 +1180,11 @@ App {
 							if ((wasteCollector == "16") || (wasteCollector == "20")) {   //meerlanden.nl
 								wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));   //also for circulus-berkel.nl
 							} else {
-								if (wasteCollector == "25") {   //area-afval.nl
-									wasteType = wasteTypeMeerlanden(aNode.substring(j+23, j+26)); //also for area-afval.nk
+								if (wasteCollector == "30") {   //meppel.nl
+									wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+23, j+29));
 								} else {
-									if (wasteCollector == "30") {   //meppel.nl
-										wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+23, j+29));
-									} else {
-										wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
-									}
+									wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
+									console.log("Area-Afval:" + wasteType + "-" + aNode.substring(j+8, j+14));
 								}
 							}
 							cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);

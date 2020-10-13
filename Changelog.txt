@@ -1,3 +1,6 @@
+4.47
+-replaced arnhem.nl with suez.nl. Need to go to the config screen to enter your iCal number.
+
 4.46
 - fixed area-afval.nl for Hoogeveen (hope I didn't screw up the others)
 

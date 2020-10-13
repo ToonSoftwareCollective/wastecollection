@@ -21,6 +21,7 @@ Screen {
 			case "6" : return "https://inzamelkalender.hvcgroep.nl/ical/";
 			case "7" : return "https://afvalkalender.dar.nl/ical/";
 			case "12" : return "https://inzamelschema.rmn.nl/ical/";
+			case "13" : return "https://inzamelwijzer.suez.nl/ical/";
 			case "18" : return "http://afvalkalender.zrd.nl/ical/";
 			case "23" : return "https://afvalkalender.alphenaandenrijn.nl/ical/";
 			case "24" : return "https://www.avalex.nl/ical/";
@@ -213,7 +214,6 @@ Screen {
 					"              limburg.net\n" +
 					"              iok.be\n" +
 					"              cranendonck.nl\n" +
-					"              afvalwijzer-arnhem.nl\n" +
 					"              rd4info.nl\n" +
 					"              afvalalert.nl\n" +
 					"              drimmelen.nl\n" +
@@ -326,7 +326,6 @@ Screen {
 					"              mijnafvalwijzer.nl\n" +
 					"              limburg.net\n" +
 					"              cranendonck.nl\n" +
-					"              afvalwijzer-arnhem.nl\n" +
 					"              rd4info.nl\n" +
 					"              afvalalert.nl\n" +
 					"              drimmelen.nl\n" +
@@ -395,7 +394,7 @@ Screen {
 					"                7 : dar.nl                                 8 : cranendonck.nl\n" +
 					"                9 : iok.be                              10 : limburg.net\n" +
 					"              11 : denhaag.nl                     12 : rmn.nl\n" +
-					"              13 : afvalwijzer-arnhem.nl  14 : rova.nl\n" +
+					"              13 : inzamelwijzer.suez.nl  14 : rova.nl\n" +
 					"              15 : afvalalert.nl            16 : meerlanden.nl\n" +
 					"              17 : rd4info.nl(Toon2)        18 : zrd.nl\n" +
 					"              19 : drimmelen.nl               20: circulus-berkel.nl\n" +

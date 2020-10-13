@@ -23,7 +23,7 @@ App {
 			//				10: "limburg.net"
 			//				11: "denhaag.nl"
 			//				12: "rmn.nl"
-			//				13: "afvalwijzer-arnhem.nl"
+			//				13: "inzamelwijzer.suez.nl"
 			//				14: "rova.nl"
 			//				15: "afvalalert.nl"
 			//				16: "meerlanden.nl"
@@ -294,7 +294,7 @@ App {
 			readCureAfvalbeheerNew();
 		}
 		if (wasteCollector == "13") {
-			readArnhem();
+			readCureAfvalbeheerNew();
 		}
 		if (wasteCollector == "14") {
 			readMijnafvalwijzerHTML();
@@ -1407,6 +1407,9 @@ App {
 		}
 		if (wasteCollector == "12") {
 			xmlhttp.open("GET", "https://inzamelschema.rmn.nl/ical/" + wasteICSId, true);
+		}
+		if (wasteCollector == "13") {
+			xmlhttp.open("GET", "https://inzamelwijzer.suez.nl/ical/" + wasteICSId, true);
 		}
 		if (wasteCollector == "18") {
 			xmlhttp.open("GET", "http://afvalkalender.zrd.nl/ical/" + wasteICSId, true);

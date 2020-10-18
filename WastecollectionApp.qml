@@ -31,7 +31,7 @@ App {
 			//				18: "zrd.nl"
 			//				19: "drimmelen.nl"
 			//				20: "circulus-berkel.nl"
-			//				21: "omrin.n"
+			//				21: "omrin.nl"
 			//				22: "afvalstoffendienstkalender.nl"
 			//				23: "alphenaandenrijn.nl"
 			//				24: "avalex.nl"
@@ -49,6 +49,7 @@ App {
 			//				36: "hellendoorn.nl"
 			//				37: "stadswerk072.nl"
 			//				38: "almere.nl"
+			//				39: "purmerend.nl"
 			//				0: "overig (handmatig)"
 			//		
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net
@@ -346,6 +347,7 @@ App {
 		}
 		if (wasteCollector == "21") {   
 			readOmrin();
+//			readOmrinDirect(); under development
 		}
 		if (wasteCollector == "25") {		//only waste description and date formatting differs from cure-afvalbeheer
 			readAreaAfval();
@@ -376,6 +378,9 @@ App {
 		}
 		if (wasteCollector == "38") {
 			read2goMobile();
+		}
+		if (wasteCollector == "39") {
+			readCureAfvalbeheerNew();
 		}
 	}
 
@@ -634,6 +639,110 @@ App {
 				}
 			}
 		}
+	}
+
+	function readOmrinDirect() {
+
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "https://www.omrin.nl/bij-mij-thuis/afval-regelen/afvalkalender", true);
+        	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        	xmlhttp.setRequestHeader("Content-length", 0);
+//        	xmlhttp.setRequestHeader("Connection", "close");
+       		xmlhttp.setRequestHeader("zipcode", wasteZipcode.substring(0,4));
+       		xmlhttp.setRequestHeader("zipcodeend", wasteZipcode.substring(4,6));
+       		xmlhttp.setRequestHeader("housenumber", wasteHouseNr);
+       		xmlhttp.setRequestHeader("addition", "");
+       		xmlhttp.setRequestHeader("Connection", "close");
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+  				var doc4 = new XMLHttpRequest();
+   				doc4.open("PUT", "file:///var/volatile/tmp/omrin_source.txt");
+   				doc4.send(xmlhttp.responseText);
+
+				var i = 0;
+				var j = 0;
+				var k = 0;
+				var l = 0;
+				var m = 0;
+				var n = 0;
+				wasteDatesString = "";
+				var wasteType = "";
+				var omrinAfvalbeheerDates = [];
+				var omrinYear = "";
+				var monthStr = "";
+				var aNode = xmlhttp.responseText;
+
+				i = aNode.indexOf("omrinDataGroups");
+	 			aNode = aNode.slice(i);	
+				i = aNode.indexOf("{");
+	 			aNode = aNode.slice(i);
+			
+				// read year
+
+				omrinYear = aNode.substring(2,6);
+
+				//read sortibak entries
+
+				i = aNode.indexOf("Sortibak");
+				m = aNode.indexOf("dates", i);
+
+				for (k = 1; k < 13; k++) {
+
+					monthStr = ("00" + k).slice(-2);
+					i = aNode.indexOf('"' + k + '"', m);
+					n = aNode.indexOf("[", i);
+					m = aNode.indexOf("]", i);
+					var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+
+					for (l = 0; l < monthDates.length; l++) {
+						omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",0");    //restafval
+					}
+				}
+
+				//read biobak entries
+
+				i = aNode.indexOf("Biobak");
+				m = aNode.indexOf("dates", i);
+
+				for (k = 1; k < 13; k++) {
+
+					monthStr = ("00" + k).slice(-2);
+					i = aNode.indexOf('"' + k + '"', m);
+					n = aNode.indexOf("[", i);
+					m = aNode.indexOf("]", i);
+					var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+
+					for (l = 0; l < monthDates.length; l++) {
+						omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",3");    //gft
+					}
+				}
+
+				//read oudpapier entries (contribution by Arcidodo , thanks)
+
+				i = aNode.indexOf("Oud Papier en Karton");
+				m = aNode.indexOf("dates", i);
+
+				for (k = 1; k < 13; k++) {
+					monthStr = ("00" + k).slice(-2);
+					i = aNode.indexOf('"' + k + '"', m);
+					n = aNode.indexOf("[", i);
+					m = aNode.indexOf("]", i);
+					var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+
+					for (l = 0; l < monthDates.length; l++) {
+						omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",2");    //oudpapier
+					}
+				}
+
+				var tmp = WastecollectionJS.sortArray2(omrinAfvalbeheerDates, extraDates);
+
+				for (i = 0; i < tmp.length; i++) {
+					wasteDatesString = wasteDatesString + tmp[i] + "\n";
+				}
+				writeWasteDates();
+			}
+		}
+		xmlhttp.send();
 	}
 
 	function read2goMobile() {
@@ -1177,7 +1286,7 @@ App {
 							}
 							cureAfvalbeheerDates.push(aNode.substring(i+19, i+23) + "-" + aNode.substring(i+23, i+25) + "-" + aNode.substring(i+25, i+27) + "," + wasteType);
 						} else {
-							if ((wasteCollector == "16") || (wasteCollector == "20")) {   //meerlanden.nl
+							if ((wasteCollector == "16") || (wasteCollector == "20") || (wasteCollector == "39")) {   //meerlanden.nl
 								wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));   //also for circulus-berkel.nl
 							} else {
 								if (wasteCollector == "30") {   //meppel.nl
@@ -1351,7 +1460,7 @@ App {
 							if (wasteCollector == "7") {  //dar.nl
 								wasteType = wasteTypeDarNL(aNode.substring(j+8, j+13));
 							} else {
-								if ((wasteCollector == "16") || (wasteCollector == "18")) {   //meerlanden.nl or zrd.nl
+								if ((wasteCollector == "16") || (wasteCollector == "18") || (wasteCollector == "39")) {   //meerlanden.nl or zrd.nl
 									wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));
 								} else {
 									if (wasteCollector == "12") {   //rmn.nl
@@ -1431,6 +1540,9 @@ App {
 		}
 		if (wasteCollector == "37") {
 			xmlhttp.open("GET", "https://inzamelkalender.stadswerk072.nl/ical/" + wasteICSId, true);
+		}
+		if (wasteCollector == "39") {
+			xmlhttp.open("GET", "https://afvalkalender.purmerend.nl/ical/" + wasteICSId, true);
 		}
 		xmlhttp.send();
 	}

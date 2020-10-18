@@ -1,3 +1,10 @@
+4.48
+- added purmerend.nl. Select provider 39 and fill in vour calendar ICS number
+  Get you calendar ICS number by visiting afvalkalender.purmerend.nl and login with your zipcode/housenr.
+  Click 'Naar maand en jaar kalender'
+  Click 'Zet inzameldata in agenda'
+  Look at the link under 'Synchroniseren'and find your calendar ICS number at the end of the URL.
+
 4.47
 -replaced arnhem.nl with suez.nl. Need to go to the config screen to enter your iCal number.
 

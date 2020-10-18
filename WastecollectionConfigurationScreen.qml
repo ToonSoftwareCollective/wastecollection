@@ -27,6 +27,7 @@ Screen {
 			case "24" : return "https://www.avalex.nl/ical/";
 			case "26" : return "https://inzamelkalender.gad.nl/ical/";
 			case "37" : return "https://inzamelkalender.stadswerk072.nl/ical/";
+			case "39" : return "https://afvalkalender.purmerend.nl/ical/";
 			default: break;
 		}
 		return "---";
@@ -117,7 +118,7 @@ Screen {
 
 	function validateAfvalverwerker(text, isFinalString) {
 		if (isFinalString) {
-			if (parseInt(text) < 39)
+			if (parseInt(text) < 40)
 				return null;
 			else
 				return {title: "Ongeldig keuze", content: "Voer een getal in kleiner dan 39"};
@@ -407,6 +408,7 @@ Screen {
 					"              33 : bar-afvalbeheer.nl   34: twentemilieu.nl\n" +
 					"              35:  reinis.nl           36:hellendoorn.nl\n" +
 					"              37:  stadswerk072.nl     38:almere.nl\n" +
+					"              39:  purmerend.nl\n" +
 					"               0 : overig (handmatig)" , "Sluiten");
 		}
 	}
@@ -464,6 +466,7 @@ Screen {
 					"              alphenaandenrijn.nl\n" +
 					"              avalex.nl\n" +
 					"              gad.nl\n" +
+					"              purmerend.nl\n" +
 					"              cyclusnv.nl\n" , "Sluiten");
 		}
 	}

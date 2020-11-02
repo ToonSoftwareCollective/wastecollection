@@ -1215,10 +1215,9 @@ App {
 						j = aNode.indexOf("SUMMARY", i);
 
 						wasteType = wasteTypeMeerlanden(aNode.substring(j+23, j+26)); //also for area-afval.nk
-						console.log("Area:" + wasteType + "-" + aNode.substring(j+23, j+26));
+
 						if (wasteType = "?") {
 							wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11)); //also for area-afval.nk
-							console.log("Area:" + wasteType + "-" + aNode.substring(j+8, j+11));
 						}
 						cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
 
@@ -1293,7 +1292,6 @@ App {
 									wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+23, j+29));
 								} else {
 									wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
-									console.log("Area-Afval:" + wasteType + "-" + aNode.substring(j+8, j+14));
 								}
 							}
 							cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
@@ -1663,8 +1661,9 @@ App {
 
 							k = aNode.indexOf('span-line-break', j);
 							l = aNode.indexOf('<', k);
+
 							resultDates =  aNode.substring(k + 1, l).split(" ");
-							wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
+							wasteDateYMD = resultDates[3] + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
 
 							if ((wasteCodeHTML == "rest- & gft-afval") || (wasteCodeHTML == "rest-gft") || (wasteCodeHTML == "restafval & gft") || (wasteCodeHTML == "restgft")) {   //split rest & gft in two dates
 								wasteType = wasteTypeMijnafvalwijzer("restafval");
@@ -1685,8 +1684,6 @@ App {
 									mijnAfvalwijzerDates .push(wasteDateYMD + "," + wasteType);
 								}
 							}
-							console.log("Start Afvalwijzer: type:" + wasteType);
-
 
 							i = aNode.indexOf("#waste-", l);
 						}

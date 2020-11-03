@@ -1663,7 +1663,12 @@ App {
 							l = aNode.indexOf('<', k);
 
 							resultDates =  aNode.substring(k + 1, l).split(" ");
-							wasteDateYMD = resultDates[3] + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
+	
+							if (resultDates.length == 4) {
+								wasteDateYMD = resultDates[3] + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
+							} else {
+								wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
+							}
 
 							if ((wasteCodeHTML == "rest- & gft-afval") || (wasteCodeHTML == "rest-gft") || (wasteCodeHTML == "restafval & gft") || (wasteCodeHTML == "restgft")) {   //split rest & gft in two dates
 								wasteType = wasteTypeMijnafvalwijzer("restafval");

@@ -546,6 +546,7 @@ App {
 			case "GFT": return 3;		//groente/fruit		//denhaag.nl
 			case "Res": return 0;		//huisvuil			//denhaag.nl + rmn.nl
 			case "Pap": return 2;		//papier en karton		//denhaag.nl
+			case "Ker": return 4;		//kerstbomen (snoeiafval)
 			case "Gro": return 3;		//groente/fruit		//rmn.nl
 			case "Pap": return 2;		//papier en karton		//rmn.nl
 			case "PMD": return 1;		//plastic metaal drankpakken//rmn.nl

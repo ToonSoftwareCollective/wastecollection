@@ -1,3 +1,6 @@
+4.50
+- fix for denhaag.nl: collection of 'Kerstbomen' now shown as 'Snoeiafval' instead of 'Onbekend'
+
 4.49
 - fix for mijnafvalwijzer (1 or 31) when containing data for multiple years
 

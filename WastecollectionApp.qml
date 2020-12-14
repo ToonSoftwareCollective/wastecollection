@@ -587,6 +587,7 @@ App {
 			case "gft": return 3;		//groente/fruit	
 			case "res": return 0;		//huisvuil
 			case "mil": return 1;		//milieu boer
+			case "pap": return 2;		//papier
 			default: break;
 		}
 		return "?";

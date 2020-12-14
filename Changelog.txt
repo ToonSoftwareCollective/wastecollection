@@ -1,3 +1,6 @@
+4.51
+- added category 'papier'for afvalalert.nl
+
 4.50
 - fix for denhaag.nl: collection of 'Kerstbomen' now shown as 'Snoeiafval' instead of 'Onbekend'
 

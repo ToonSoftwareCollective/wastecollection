@@ -1,3 +1,10 @@
+4.52
+- added provider spaarnelanden.nl. Select provider 40 and fill in vour calendar ICS number
+  Get you calendar ICS number by visiting afvalkalender.spaarnelanden.nl and login with your zipcode/housenr.
+  Click 'Naar maand en jaar kalender'
+  Click 'Zet inzameldata in agenda'
+  Look at the link under 'Synchroniseren'and find your calendar ICS number at the end of the URL.
+
 4.51
 - added category 'papier'for afvalalert.nl
 

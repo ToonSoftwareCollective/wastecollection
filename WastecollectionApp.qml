@@ -50,6 +50,7 @@ App {
 			//				37: "stadswerk072.nl"
 			//				38: "almere.nl"
 			//				39: "purmerend.nl"
+			//				40: "spaarnelanden.nl"
 			//				0: "overig (handmatig)"
 			//		
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net
@@ -382,6 +383,9 @@ App {
 		if (wasteCollector == "39") {
 			readCureAfvalbeheerNew();
 		}
+		if (wasteCollector == "40") {
+			readCureAfvalbeheerNew();
+		}
 	}
 
 	function wasteTypeMijnafvalwijzer(shortName) {
@@ -430,6 +434,7 @@ App {
 			case "GFT wo": return 3;	//cranendonck.nl
 			case "Gft & ": return 3;	//hvcgroep.nl
 			case "Gft-af": return 3;	//meppel.nl
+			case "Gft en": return 3;	//spaarnelanden.nl
 			case "Papier": return 2;	//cureafvalbeheer plus cranendonck.nl gad.nl
 			case "Oud pa": return 2;	//cyclusnv.nl
 			case "Plasti": return 1;	//cyclusnv.nl plus cranendonck.nl gad.nl
@@ -1477,7 +1482,16 @@ App {
 													wasteType = "1"; // pmd
 												}
 											} else {
-												wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
+												if (wasteCollector == "40") { //spaarnelanden.nl  (split papier/pmd)
+													wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
+													if (aNode.substring(j+8, j+14) == "Duobak") {
+														wasteType = "2"; // papier
+														cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
+														wasteType = "1"; // pmd
+													}
+												} else {
+													wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
+												}
 											}
 										}
 									}
@@ -1543,6 +1557,9 @@ App {
 		}
 		if (wasteCollector == "39") {
 			xmlhttp.open("GET", "https://afvalkalender.purmerend.nl/ical/" + wasteICSId, true);
+		}
+		if (wasteCollector == "40") {
+			xmlhttp.open("GET", "https://afvalwijzer.spaarnelanden.nl/ical/" + wasteICSId, true);
 		}
 		xmlhttp.send();
 	}

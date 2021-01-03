@@ -1,3 +1,8 @@
+4.53
+- updated Meppel.nl to fully automated calendar retrieval. No need to manually download anymore.
+  enter your zipcode/jousenr in the settings screen
+  no need to update for other users.
+
 4.52
 - added provider spaarnelanden.nl. Select provider 40 and fill in vour calendar ICS number
   Get you calendar ICS number by visiting afvalkalender.spaarnelanden.nl and login with your zipcode/housenr.

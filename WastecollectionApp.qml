@@ -357,7 +357,7 @@ App {
 			readCureAfvalbeheerNew();
 		}
 		if (wasteCollector == "30") {
-			readMeppel();
+			read2goMobile();
 		}
 		if (wasteCollector == "32") {
 			readGroningen();
@@ -602,7 +602,9 @@ App {
 		switch (shortName) {
 			case "GREEN": return 3;		//groente/fruit	
 			case "PAPER": return 2;		//papier
-			case "PACKAGES": return 1;		//pmd
+			case "PACKAGES": return 1;	//pmd
+			case "PLASTIC": return 1;	//pmd
+			case "VET": return 7;		//KGA meppel.nl
 			case "GREY": return 0;		//restafval
 			default: break;
 		}
@@ -772,6 +774,9 @@ App {
 		if (wasteCollector == "16") {   //meerlanden.nl
 	       		var params = "companyCode=800bf8d7-6dd1-4490-ba9d-b419d6dc8a45&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
+		if (wasteCollector == "30") {   //meppel.nl
+	       		var params = "companyCode=b7a594c7-2490-4413-88f9-94749a3ec62a&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
+		}
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
         	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -828,6 +833,9 @@ App {
 		}
 		if (wasteCollector == "16") {   //meerlanden.nl
 	       		var params = "companyCode=800bf8d7-6dd1-4490-ba9d-b419d6dc8a45&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		}
+		if (wasteCollector == "30") {   //meppel.nl
+	       		var params = "companyCode=b7a594c7-2490-4413-88f9-94749a3ec62a&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
 		}
 
 		var xmlhttp = new XMLHttpRequest();
@@ -1311,63 +1319,6 @@ App {
 							i = aNode.indexOf("DTSTART", i + 10);
 						}
 
-						if (i > 0) {
-							if (aNode.substring(i, i+18) == "DTSTART;VALUE=DATE") i = i + 11;
-						}
-					}
-				}
-				var tmp = WastecollectionJS.sortArray2(cureAfvalbeheerDates, extraDates);
-
-				for (i = 0; i < tmp.length; i++) {
-					wasteDatesString = wasteDatesString + tmp[i] + "\n";
-				}
-				writeWasteDates();
-			}
-		}
-		xmlhttp.open("GET", "file:///root/waste/waste_calendar.ics", true);
-		xmlhttp.send();
-	}
-
-	// meppel via separate download of ICS file (old method)
-
-	function readMeppel() {
-	
-		var i = 0;
-		var j = 0;
-		var k = 0;
-		var m = 0;
-		wasteDatesString = "";
-		var wasteType = "";
-		var cureAfvalbeheerDates = [];
-		var meppelWasteTypes = [];
-
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-				var aNode = xmlhttp.responseText;
-
-				// read specific waste collection dates
-
-				i = aNode.indexOf("DTSTART");
-				if (i > 0) {
-					if (aNode.substring(i, i+18) == "DTSTART;VALUE=DATE") i = i + 11;
-				}
-
-				if ( i > 0 ) {
-					while (i > 0) {
-						j = aNode.indexOf("SUMMARY", i);
-						k = aNode.indexOf(":", j);
-						m = aNode.indexOf("\n", k);
-						var meppelWasteTypesStr = aNode.substring(k+1, m-1);
-						meppelWasteTypes = meppelWasteTypesStr.split(" ");
-						for (var l = 0; l < meppelWasteTypes.length; l++) {
-							if (meppelWasteTypes[l].length > 3) {
-								wasteType = wasteTypeCureAfvalbeheer(meppelWasteTypes[l].substring(0, 6));
-								cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
-							}
-						}
-
-						i = aNode.indexOf("DTSTART", i + 10);
 						if (i > 0) {
 							if (aNode.substring(i, i+18) == "DTSTART;VALUE=DATE") i = i + 11;
 						}

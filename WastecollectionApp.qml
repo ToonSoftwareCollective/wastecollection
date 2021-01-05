@@ -433,15 +433,19 @@ App {
 			case "Groene": return 3;	//katwijk.nl
 			case "GFT wo": return 3;	//cranendonck.nl
 			case "Gft & ": return 3;	//hvcgroep.nl
+			case "gft & ": return 3;	//hvcgroep.nl
 			case "Gft-af": return 3;	//meppel.nl
 			case "Gft en": return 3;	//spaarnelanden.nl
 			case "Papier": return 2;	//cureafvalbeheer plus cranendonck.nl gad.nl
+			case "papier": return 2;	//hvc
 			case "Oud pa": return 2;	//cyclusnv.nl
 			case "Plasti": return 1;	//cyclusnv.nl plus cranendonck.nl gad.nl
+			case "plasti": return 1;	//hvc
 			case "PMD-za": return 1;	//cyclusnv.nl plus cranendonck.nl gad.nl
 			case "PMD-af": return 1;	//cyclusnv.nl plus cranendonck.nl gad.nl
 			case "PMD": return 1;		//rmn
 			case "Restaf": return 0;	//cyclusnv plus cureafvalbeheer gad.nl
+			case "restaf": return 0;	//hvc
 			case "Grijze": return 0;	//katwijk.nl
 			case "Rest w": return 0;	//cranendonck.nl
 			case "Textie": return 5;	//gad.nl

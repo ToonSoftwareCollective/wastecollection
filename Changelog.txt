@@ -1,3 +1,6 @@
+4.54
+- new descriptions for waste categories for hvcgroep.nl
+
 4.53
 - updated Meppel.nl to fully automated calendar retrieval. No need to manually download anymore.
   enter your zipcode/jousenr in the settings screen

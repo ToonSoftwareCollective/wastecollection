@@ -409,6 +409,7 @@ App {
 				case "kerstbomen": return 4;
 				case "papier & karton": return 2;
 				case "papier en karton": return 2;
+				case "los papier": return 2;
 				case "plastic verpakking & drankkartons": return 1;
 				case "plastic, metalen en drankkartons": return 1;
 				case "plastic, blik en drankenkartons": return 1;

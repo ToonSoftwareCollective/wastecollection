@@ -51,6 +51,7 @@ App {
 			//				38: "almere.nl"
 			//				39: "purmerend.nl"
 			//				40: "spaarnelanden.nl"
+			//				41: "RAD Hoeksewaard"
 			//				0: "overig (handmatig)"
 			//		
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net
@@ -385,6 +386,9 @@ App {
 		}
 		if (wasteCollector == "40") {
 			readCureAfvalbeheerNew();
+		}
+		if (wasteCollector == "41") {   
+			read2goMobile();
 		}
 	}
 
@@ -782,6 +786,9 @@ App {
 		if (wasteCollector == "30") {   //meppel.nl
 	       		var params = "companyCode=b7a594c7-2490-4413-88f9-94749a3ec62a&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
+		if (wasteCollector == "41") {   //RAD Hoeksewaard
+	       		var params = "companyCode=13a2cad9-36d0-4b01-b877-efcb421a864d&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
+		}
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
         	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -841,6 +848,9 @@ App {
 		}
 		if (wasteCollector == "30") {   //meppel.nl
 	       		var params = "companyCode=b7a594c7-2490-4413-88f9-94749a3ec62a&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		}
+		if (wasteCollector == "41") {   //RAD Hoeksewaard
+	       		var params = "companyCode=13a2cad9-36d0-4b01-b877-efcb421a864d&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
 		}
 
 		var xmlhttp = new XMLHttpRequest();

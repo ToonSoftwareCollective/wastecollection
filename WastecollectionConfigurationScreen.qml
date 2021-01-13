@@ -119,7 +119,7 @@ Screen {
 
 	function validateAfvalverwerker(text, isFinalString) {
 		if (isFinalString) {
-			if (parseInt(text) < 41)
+			if (parseInt(text) < 42)
 				return null;
 			else
 				return {title: "Ongeldig keuze", content: "Voer een getal in kleiner dan 39"};

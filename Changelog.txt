@@ -1,3 +1,6 @@
+4.56
+- added provider 41: RAD Hoeksewaard. Enter providernr, zipcode and housenr in the settings screen
+
 4.55
 - updated wate description for 'papier' for rova.nl
 

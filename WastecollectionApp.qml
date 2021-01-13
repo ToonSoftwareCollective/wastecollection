@@ -414,6 +414,8 @@ App {
 				case "papier & karton": return 2;
 				case "papier en karton": return 2;
 				case "los papier": return 2;
+				case "Los papier": return 2;
+				case "pd": return 2;
 				case "plastic verpakking & drankkartons": return 1;
 				case "plastic, metalen en drankkartons": return 1;
 				case "plastic, blik en drankenkartons": return 1;
@@ -1642,6 +1644,7 @@ App {
 						while (i < endList) {
 							j = aNode.indexOf('"', i);
 							wasteCodeHTML = aNode.substring(i + 7,j);
+							console.log("********** Joop:" + wasteCodeHTML);
 							j = aNode.indexOf('"' + wasteCodeHTML, i);
 
 							k = aNode.indexOf('span-line-break', j);

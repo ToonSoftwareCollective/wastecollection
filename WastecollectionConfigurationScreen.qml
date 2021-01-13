@@ -410,6 +410,7 @@ Screen {
 					"              35:  reinis.nl           36:hellendoorn.nl\n" +
 					"              37:  stadswerk072.nl     38:almere.nl\n" +
 					"              39:  purmerend.nl      40: spaarnelanden.nl\n" +
+					"              41:  RAD Hoeksewaard\n" +
 					"               0 : overig (handmatig)" , "Sluiten");
 		}
 	}

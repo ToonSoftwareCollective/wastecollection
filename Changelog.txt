@@ -1,3 +1,6 @@
+4.57
+- fix for the fix to show paper correctly for rova.nl
+
 4.56
 - added provider 41: RAD Hoeksewaard. Enter providernr, zipcode and housenr in the settings screen
 

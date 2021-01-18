@@ -92,6 +92,7 @@ App {
 	property int wasteIconHour : 18
 	property string wastecollectionListDates
 	property variant extraDates : []
+	property string wasteFullICSUrl 
 	property variant addressJson
 	property variant calendar2goMobile
 	property string wasteExtraDatesURL
@@ -109,7 +110,8 @@ App {
 		'CustomIcons' : "No",
 		'ThermostaatIcon' : "Yes",
 		'TrayIcon' : "No",
-		'CreateICS' : "No"
+		'CreateICS' : "No",
+		'wasteFullICSUrl' : "https://"
 	}
 
 	FileIO {
@@ -159,7 +161,8 @@ App {
 			"CustomIcons" : strCustomIcons,
 			"ThermostaatIcon" : strThermostatMod,
 			"CreateICS" : strCreateICS,
-			"TrayIcon" : strSystray
+			"TrayIcon" : strSystray,
+			"ICSUrl" : wasteFullICSUrl
 		};
 
    		var doc2 = new XMLHttpRequest();
@@ -244,6 +247,11 @@ App {
 
 		try {
 			enableSystray = (wasteSettingsJson ['TrayIcon'] == "Yes");
+		} catch (e) {
+		}
+
+		try {
+			wasteFullICSUrl = wasteSettingsJson ['ICSUrl'];
 		} catch (e) {
 		}
 
@@ -388,7 +396,10 @@ App {
 			readCureAfvalbeheerNew();
 		}
 		if (wasteCollector == "41") {   
-			read2goMobile();
+			readCureAfvalbeheerNew();
+		}
+		if (wasteCollector == "42") {   
+			readCureAfvalbeheerNew();
 		}
 	}
 
@@ -442,6 +453,7 @@ App {
 			case "Gft & ": return 3;	//hvcgroep.nl
 			case "gft & ": return 3;	//hvcgroep.nl
 			case "Gft-af": return 3;	//meppel.nl
+			case "GFT - ": return 3;	//blink.nl
 			case "Gft en": return 3;	//spaarnelanden.nl
 			case "Papier": return 2;	//cureafvalbeheer plus cranendonck.nl gad.nl
 			case "papier": return 2;	//hvc
@@ -485,6 +497,7 @@ App {
 			case "Pla": return 1;
 			case "Gla": return 2;
 			case "PMD": return 1;
+			case "Ver": return 1;
 			case "Pap": return 2;
 			case "Tak": return 4;
 			case "Tex": return 5;
@@ -1442,23 +1455,27 @@ App {
 										if (wasteCollector == "23") {  // alphenaandenrijn.nl
 											wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));
 										} else {
-											if (wasteCollector == "27") { //venlo.nl  (split Restafval/pmd)
-												wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+23, k-1));
-												if (aNode.substring(j+23, j+36) == "Restafval/PMD") {
-													wasteType = "0"; // Restafval
-													cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
-													wasteType = "1"; // pmd
-												}
+											if (wasteCollector == "23" || (wasteCollector == "41")) {  // alphenaandenrijn.nl + rad.nl
+												wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));
 											} else {
-												if (wasteCollector == "40") { //spaarnelanden.nl  (split papier/pmd)
-													wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
-													if (aNode.substring(j+8, j+14) == "Duobak") {
-														wasteType = "2"; // papier
+												if (wasteCollector == "27") { //venlo.nl  (split Restafval/pmd)
+													wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+23, k-1));
+													if (aNode.substring(j+23, j+36) == "Restafval/PMD") {
+														wasteType = "0"; // Restafval
 														cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
 														wasteType = "1"; // pmd
 													}
 												} else {
-													wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
+													if (wasteCollector == "40") { //spaarnelanden.nl  (split papier/pmd)
+														wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
+														if (aNode.substring(j+8, j+14) == "Duobak") {
+															wasteType = "2"; // papier
+															cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
+															wasteType = "1"; // pmd
+														}
+													} else {
+														wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
+													}
 												}
 											}
 										}
@@ -1529,9 +1546,15 @@ App {
 		if (wasteCollector == "40") {
 			xmlhttp.open("GET", "https://afvalwijzer.spaarnelanden.nl/ical/" + wasteICSId, true);
 		}
+		if (wasteCollector == "42") {
+			xmlhttp.open("GET", "https://mijnblink.nl/ical/" + wasteICSId, true);
+		}
+		if (wasteCollector == "41") {
+			xmlhttp.open("GET", wasteFullICSUrl , true);
+		}
 		xmlhttp.send();
 	}
-                                               
+
 	function readMijnafvalwijzer() {
 	
 		var i = 0;

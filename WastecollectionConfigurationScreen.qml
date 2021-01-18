@@ -29,6 +29,7 @@ Screen {
 			case "37" : return "https://inzamelkalender.stadswerk072.nl/ical/";
 			case "39" : return "https://afvalkalender.purmerend.nl/ical/";
 			case "40" : return "https://afvalwijzer.spaarnelanden.nl/ical/";
+			case "42" : return "https://mijnblink.nl/ical/";
 			default: break;
 		}
 		return "---";
@@ -119,7 +120,7 @@ Screen {
 
 	function validateAfvalverwerker(text, isFinalString) {
 		if (isFinalString) {
-			if (parseInt(text) < 42)
+			if (parseInt(text) < 43)
 				return null;
 			else
 				return {title: "Ongeldig keuze", content: "Voer een getal in kleiner dan 39"};
@@ -410,7 +411,7 @@ Screen {
 					"              35:  reinis.nl           36:hellendoorn.nl\n" +
 					"              37:  stadswerk072.nl     38:almere.nl\n" +
 					"              39:  purmerend.nl      40: spaarnelanden.nl\n" +
-					"              41:  RAD Hoeksewaard\n" +
+					"              41:  RAD Hoeksewaard    42: blink.nl\n" +
 					"               0 : overig (handmatig)" , "Sluiten");
 		}
 	}

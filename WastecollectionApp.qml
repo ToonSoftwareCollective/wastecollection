@@ -296,7 +296,7 @@ App {
 			readIok();
 		}
 		if (wasteCollector == "10") {
-			readLimburgNet();
+			readCureAfvalbeheer();
 		}
 		if (wasteCollector == "11") {
 			readDenHaag();
@@ -375,7 +375,7 @@ App {
 			read2goMobile();
 		}
 		if (wasteCollector == "34") {
-			readCureAfvalbeheer();
+			read2goMobile();
 		}
 		if (wasteCollector == "35") {
 			read2goMobile();
@@ -786,7 +786,7 @@ App {
 	       		var params = "companyCode=bb58e633-de14-4b2a-9941-5bc419f1c4b0&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
 		if (wasteCollector == "34") {   //twentemilieu.nl
-	       		var params = "companyCode=8d97bb56-5afd-4cbc-a651-b4f7314264b4&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
+	       		var params = "companyCode=8d97bb56-5afd-4cbc-a651-b4f7314264b4&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=F";
 		}
 		if (wasteCollector == "35") {   //reinis.nl
 	       		var params = "companyCode=9dc25c8a-175a-4a41-b7a1-83f237a80b77&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
@@ -1293,7 +1293,7 @@ App {
 							}
 							cureAfvalbeheerDates.push(aNode.substring(i+19, i+23) + "-" + aNode.substring(i+23, i+25) + "-" + aNode.substring(i+25, i+27) + "," + wasteType);
 						} else {
-							if ((wasteCollector == "16") || (wasteCollector == "20") || (wasteCollector == "39") || (wasteCollector == "34")) {   //meerlanden.nl
+							if ((wasteCollector == "16") || (wasteCollector == "20") || (wasteCollector == "39") || (wasteCollector == "10")) {   //meerlanden.nl
 								wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));   //also for circulus-berkel.nl
 							} else {
 								if (wasteCollector == "30") {   //meppel.nl

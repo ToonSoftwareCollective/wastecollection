@@ -1,5 +1,5 @@
-4.59
-- cannot retrieve limburg.net data online, need yo download the ICS file manually via
+4.60
+- cannot retrieve limburg.net (provider 10) data online, need to download the ICS file manually via
   limburg.net and copy to file to Toon as /root/waste/waste_calendar.ics
   You have to repeat this once a year or as often as there are changes
 

@@ -375,7 +375,7 @@ App {
 			read2goMobile();
 		}
 		if (wasteCollector == "34") {
-			read2goMobile();
+			readCureAfvalbeheer();
 		}
 		if (wasteCollector == "35") {
 			read2goMobile();
@@ -494,9 +494,11 @@ App {
 			case "GFT": return 3;
 			case "Gft": return 3;
 			case "Res": return 0;
+			case "Hui": return 0;
 			case "Pla": return 1;
 			case "Gla": return 2;
 			case "PMD": return 1;
+			case "Pmd": return 1;
 			case "Ver": return 1;
 			case "Pap": return 2;
 			case "Tak": return 4;
@@ -1032,45 +1034,6 @@ App {
 		xmlhttp.send();
 	}
 
-	function readLimburgNet() {
-	
-		var i = 0;
-		var j = 0;
-		wasteDatesString = "";
-		var wasteType = "";
-		var cureAfvalbeheerDates = [];
-
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-				var aNode = xmlhttp.responseText;
-
-				// read specific waste collection dates
-
-				j = aNode.indexOf("BEGIN:VEVENT");
-				i = aNode.indexOf("DTSTART",j);
-
-				if ( i > 0 ) {
-					while (i > 0) {
-						j = aNode.indexOf("SUMMARY", i);
-
-						wasteType = wasteTypeLimburgNet(aNode.substring(j+8, j+11));
-						cureAfvalbeheerDates.push(aNode.substring(i+19, i+23) + "-" + aNode.substring(i+23, i+25) + "-" + aNode.substring(i+25, i+27) + "," + wasteType);
-						i = aNode.indexOf("DTSTART", i + 10);
-					}
-				}
-				var tmp = WastecollectionJS.sortArray2(cureAfvalbeheerDates, extraDates);
-
-				for (i = 0; i < tmp.length; i++) {
-					wasteDatesString = wasteDatesString + tmp[i] + "\n";
-				}
-				writeWasteDates();
-			}
-		}
-		xmlhttp.open("GET", "http://www.limburg.net/ics/afvalkalender/" + wasteZipcode + "/" + wasteStreet + "/" + wasteHouseNr + "/0", true);
-		xmlhttp.send();
-	}
-
 	function formatDate(date) {
     		var d = new Date(date),
         	month = '' + (d.getMonth() + 1),
@@ -1330,7 +1293,7 @@ App {
 							}
 							cureAfvalbeheerDates.push(aNode.substring(i+19, i+23) + "-" + aNode.substring(i+23, i+25) + "-" + aNode.substring(i+25, i+27) + "," + wasteType);
 						} else {
-							if ((wasteCollector == "16") || (wasteCollector == "20") || (wasteCollector == "39")) {   //meerlanden.nl
+							if ((wasteCollector == "16") || (wasteCollector == "20") || (wasteCollector == "39") || (wasteCollector == "34")) {   //meerlanden.nl
 								wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));   //also for circulus-berkel.nl
 							} else {
 								if (wasteCollector == "30") {   //meppel.nl

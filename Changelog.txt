@@ -1,3 +1,8 @@
+4.59
+- cannot retrieve limburg.net data online, need yo download the ICS file manually via
+  limburg.net and copy to file to Toon as /root/waste/waste_calendar.ics
+  You have to repeat this once a year or as often as there are changes
+
 4.58
 - added blink.nl (provider 42)and fill in vour calendar ICS number
   Get you calendar ICS number by visiting mijnblink.nl and login with your zipcode/housenr.

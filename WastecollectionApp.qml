@@ -505,7 +505,7 @@ App {
 			case "Tex": return 5;
 			case "KCA": return 7;
 			case "Gro": return 8;
-			case "tui": return 3; //limburg.net 'tuin- en snoeiafval'
+			case "tui": return 4; //limburg.net 'tuin- en snoeiafval'
 			default: break;
 		}
 		return "?";

@@ -80,6 +80,24 @@ Screen {
 		}
 	}
 
+	function saveWasteStreetName(text) {
+
+		if (text) {
+			app.wasteStreetName = text;
+			wasteStreetNameLabel.inputText = app.wasteStreetName;
+			showDialogWasteCollection()
+		}
+	}
+
+	function saveWasteCity(text) {
+
+		if (text) {
+			app.wasteCity = text;
+			wasteCityLabel.inputText = app.wasteCity;
+			showDialogWasteCollection()
+		}
+	}
+
 	function saveWasteICSId(text) {
 
 		if (text) {
@@ -136,6 +154,8 @@ Screen {
 		wasteZipcodeLabel.inputText = app.wasteZipcode;
 		wasteCollectorLabel.inputText = app.wasteCollector;
 		wasteStreetLabel.inputText = app.wasteStreet;
+		wasteStreetNameLabel.inputText = app.wasteStreetName;
+		wasteCityLabel.inputText = app.wasteCity;
 		wasteICSIdLabel.inputText = app.wasteICSId;
 		wasteIconHourLabel.inputText = app.wasteIconHour;
 		wasteExtraDatesLabel.inputText = app.wasteExtraDatesURL;
@@ -186,11 +206,49 @@ Screen {
 		}
 	}
 
+
+	EditTextLabel4421 {
+		id: wasteCityLabel
+		width: isNxt ? 350 : 280
+		height: isNxt ? 44 : 35
+		leftTextAvailableWidth: isNxt ? 250 : 200
+		leftText: "Plaats:"
+		visible : (app.wasteCollector == "10")
+		anchors {
+			left: title.left
+			top: title.bottom
+			topMargin: 6
+		}
+
+		onClicked: {
+			qkeyboard.open("Voer postcode in (1111AA)", wasteCityLabel.inputText, saveWasteCity)
+		}
+	}
+
+	IconButton {
+		id: wasteCityLabelButton;
+		width: isNxt ? 50 : 40
+		iconSource: "qrc:/tsc/edit.png"
+		visible : (app.wasteCollector == "10")
+		anchors {
+			left: wasteZipcodeLabel.right
+			leftMargin: 6
+			top: title.bottom
+			topMargin: 6
+		}
+
+		bottomClickMargin: 3
+		onClicked: {
+			qkeyboard.open("Voer plaatsnaam in", wasteCityLabel.inputText, saveWasteCity)
+		}
+	}
+
+
 	IconButton {
 		id: wasteZipcodeLabelButton;
 		width: isNxt ? 50 : 40
 		iconSource: "qrc:/tsc/edit.png"
-		visible : (wasteICSIdLabel.leftText.length < 5)
+		visible : ((wasteICSIdLabel.leftText.length < 5) && (app.wasteCollector !== "10"))
 		anchors {
 			left: wasteZipcodeLabel.right
 			leftMargin: 6
@@ -210,11 +268,10 @@ Screen {
 		anchors.left: wasteZipcodeLabelButton.right
 		anchors.bottom: wasteZipcodeLabelButton.bottom
 		anchors.leftMargin: 10
-		visible : (wasteICSIdLabel.leftText.length < 5)
+		visible : ((wasteICSIdLabel.leftText.length < 5) && (app.wasteCollector !== "10"))
 		onClicked: {
 			qdialog.showDialog(qdialog.SizeLarge, "Postcode", "Alleen invoeren voor de volgende afvalverwerkers:\n" +
 					"              mijnafvalwijzer.nl\n" +
-					"              limburg.net\n" +
 					"              iok.be\n" +
 					"              cranendonck.nl\n" +
 					"              rd4info.nl\n" +
@@ -233,12 +290,49 @@ Screen {
 	}
 
 	EditTextLabel4421 {
+		id: wasteStreetNameLabel
+		width: wasteZipcodeLabel.width
+		height: isNxt ? 44 : 35
+		leftTextAvailableWidth: isNxt ? 250 : 200
+		leftText: "Straatnaam:"
+		visible : (app.wasteCollector == "10")
+		anchors {
+			left: title.left
+			top: wasteZipcodeLabel.bottom
+			topMargin: 6
+		}
+
+		onClicked: {
+			qkeyboard.open("Voer straatnaam in", wasteStreetNameLabel.inputText, saveWasteStreetName)
+		}
+	}
+
+	IconButton {
+		id: wasteStreetNameLabelButton;
+		width: isNxt ? 50 : 40
+		iconSource: "qrc:/tsc/edit.png"
+		visible : (app.wasteCollector == "10")
+		anchors {
+			left: wasteStreetLabel.right
+			leftMargin: 6
+			top: wasteZipcodeLabel.bottom
+			topMargin: 6
+		}
+
+		topClickMargin: 3
+		onClicked: {
+			qkeyboard.open("Voer straatnaam in", wasteStreetNameLabel.inputText, saveWasteStreetName)
+		}
+	}
+
+
+	EditTextLabel4421 {
 		id: wasteStreetLabel
 		width: wasteZipcodeLabel.width
 		height: isNxt ? 44 : 35
 		leftTextAvailableWidth: isNxt ? 250 : 200
 		leftText: "Straatnr(BE):"
-		visible : (wasteICSIdLabel.leftText.length < 5)
+		visible : ((wasteICSIdLabel.leftText.length < 5) && (app.wasteCollector !== "10"))
 		anchors {
 			left: title.left
 			top: wasteZipcodeLabel.bottom
@@ -254,7 +348,7 @@ Screen {
 		id: wasteStreetLabelButton;
 		width: isNxt ? 50 : 40
 		iconSource: "qrc:/tsc/edit.png"
-		visible : (wasteICSIdLabel.leftText.length < 5)
+		visible : ((wasteICSIdLabel.leftText.length < 5) && (app.wasteCollector !== "10"))
 		anchors {
 			left: wasteStreetLabel.right
 			leftMargin: 6
@@ -274,10 +368,9 @@ Screen {
 		anchors.left: wasteStreetLabelButton.right
 		anchors.bottom: wasteStreetLabelButton.bottom
 		anchors.leftMargin: 10
-		visible : (wasteICSIdLabel.leftText.length < 5)
+		visible : ((wasteICSIdLabel.leftText.length < 5) && (app.wasteCollector !== "10"))
 		onClicked: {
 			qdialog.showDialog(qdialog.SizeLarge, "Straat", "Alleen invoeren voor de volgende afvalverwerkers:\n" +
-					"              limburg.net\n" +
 					"              iok.be\n" , "Sluiten");
 		}
 	}

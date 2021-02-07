@@ -57,6 +57,8 @@ App {
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net
 	property string wasteHouseNr : "2"
 	property string wasteStreet : "223"
+	property string wasteCity : ""
+	property string wasteStreetName : ""
 	property string wasteICSId: "0"
 
 	property url tileUrl : "WastecollectionTile.qml"
@@ -103,6 +105,8 @@ App {
 		'Postcode': "",
 		'Huisnummer': "",
 		'Straatnummer': "",
+		'Gemeente': "",
+		'Straatnaam': "",
 		'ICSnummer': "",
 		'DisplayIconVanafUur': "",
 		'ExtraDatumsFile': "",
@@ -154,6 +158,8 @@ App {
 			"Postcode" : wasteZipcode,
 			"Huisnummer" : wasteHouseNr,
 			"Straatnummer" : wasteStreet,
+			"Gemeente": wasteCity,
+			"Straatnaam": wasteStreetName,
 			"ICSnummer" : wasteICSId,
 			"DisplayIconVanafUur" : wasteIconHour,
 			"ExtraDatumsFile" : wasteExtraDatesURL,
@@ -255,6 +261,16 @@ App {
 		} catch (e) {
 		}
 
+		try {
+			wasteCity = wasteSettingsJson ['Gemeente'];
+		} catch (e) {
+		}
+
+		try {
+			wasteStreetName = wasteSettingsJson ['Straatnaam'];
+		} catch (e) {
+		}
+
 
 		readExtraDates();		// read extra dates to be displayed
 		getExtraIconLabels();		// read folder locations for custom icons
@@ -296,7 +312,8 @@ App {
 			readIok();
 		}
 		if (wasteCollector == "10") {
-			readCureAfvalbeheer();
+//			readCureAfvalbeheer();
+			readLimburgNet();
 		}
 		if (wasteCollector == "11") {
 			readDenHaag();
@@ -505,7 +522,6 @@ App {
 			case "Tex": return 5;
 			case "KCA": return 7;
 			case "Gro": return 8;
-			case "tui": return 3; //limburg.net 'tuin- en snoeiafval'
 			default: break;
 		}
 		return "?";
@@ -559,15 +575,13 @@ App {
 		return "?";
 	}
 
-	function wasteTypeLimburgNet(shortName) {
+	function wasteTypeLimburg(shortName) {
 		switch (shortName) {
-			case "kun": return 9;		//kunststoffen
-			case "hui": return 0;		//huisvuil
-			case "tui": return 4;		//tuin en snoeiafval
-			case "gro": return 8;		//grofvuil
-			case "pap": return 2;		//papier en karton
-			case "tex": return 5;		//textiel
-			case "pmd": return 1;		//plastic metaal drankpakken
+			case "Gft": return 3;		//gft
+			case "Hui": return 0;		//huisvuil
+			case "Pap": return 2;		//papier en karton
+			case "Pmd": return 1;		//plastic metaal drankpakken
+			case "tui": return 4;		//tuinafval
 			default: break;
 		}
 		return "?";
@@ -996,6 +1010,103 @@ App {
 		xmlhttp.send();
 	}
 
+	function readLimburgNet() {
+		
+		wasteDatesString = "";
+		var wasteType = "";
+		var limburgAfvalbeheerDates = [];
+
+    		var d = new Date();
+        	var currentMonth = '' + (d.getMonth() + 1);
+        	var currentYear = d.getFullYear();
+
+		if (d.getMonth() == 11) {
+    			var nextMonthM = "01";
+			var nextMonthY = d.getFullYear() + 1;
+		} else {
+    			var nextMonthM = d.getMonth() + 2;
+			var nextMonthY = d.getFullYear();
+		}	
+
+			// retrieve city id
+
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+				
+				if (xmlhttp.responseText !== "[]") {
+
+						// retrieve street id
+	
+					var i = xmlhttp.responseText.indexOf("}");
+					console.log(xmlhttp.responseText.substring(1,i+1));
+					var cityNumbers = JSON.parse(xmlhttp.responseText.substring(1,i+1));
+					if (wasteCity !== cityNumbers["naam"]) {
+						wasteCity = cityNumbers["naam"];
+						saveWasteSettingsJson();
+					}
+
+					var xmlhttp2 = new XMLHttpRequest();
+					xmlhttp2.onreadystatechange = function() {
+						if (xmlhttp2.readyState == XMLHttpRequest.DONE) {
+							var i = xmlhttp2.responseText.indexOf("}");
+							var streetNumbers = JSON.parse(xmlhttp2.responseText.substring(1,i+1));
+							if (streetNumbers["nummer"]) {
+								if (wasteStreetName !== streetNumbers["naam"]) {
+									wasteStreetName = streetNumbers["naam"];
+									saveWasteSettingsJson();
+								}
+
+									// retrieve collection dates current month
+
+								var xmlhttp3 = new XMLHttpRequest();
+								xmlhttp3.onreadystatechange = function() {
+									if (xmlhttp3.readyState == XMLHttpRequest.DONE) {
+										console.log(xmlhttp3.responseText);
+										var collectionDates = JSON.parse(xmlhttp3.responseText);
+										if (collectionDates["ophalingen"]["lijstVanOphaalDagen"].length > 0) {
+											for (var i = 0; i < collectionDates["ophalingen"]["lijstVanOphaalDagen"].length; i++) {
+												wasteType = wasteTypeLimburg(collectionDates["activiteitenLegende"][collectionDates["ophalingen"]["lijstVanOphaalDagen"][i]["activiteitCode"]]["omschrijving"].substring(0,3));
+												limburgAfvalbeheerDates.push(collectionDates["ophalingen"]["lijstVanOphaalDagen"][i]["datum"].substring(0,10) + "," + wasteType);
+											}
+										}
+
+											// retrieve collection dates next month
+
+										var xmlhttp4 = new XMLHttpRequest();
+										xmlhttp4.onreadystatechange = function() {
+											if (xmlhttp4.readyState == XMLHttpRequest.DONE) {
+												var collectionDates = JSON.parse(xmlhttp4.responseText);
+												if (collectionDates["ophalingen"]["lijstVanOphaalDagen"].length > 0) {
+													for (var i = 0; i < collectionDates["ophalingen"]["lijstVanOphaalDagen"].length; i++) {
+														wasteType = wasteTypeLimburg(collectionDates["activiteitenLegende"][collectionDates["ophalingen"]["lijstVanOphaalDagen"][i]["activiteitCode"]]["omschrijving"].substring(0,3));
+														limburgAfvalbeheerDates.push(collectionDates["ophalingen"]["lijstVanOphaalDagen"][i]["datum"].substring(0,10) + "," + wasteType);
+													}
+												}
+												var tmp = WastecollectionJS.sortArray2(limburgAfvalbeheerDates, extraDates);
+												for (i = 0; i < tmp.length; i++) {
+													wasteDatesString = wasteDatesString + tmp[i] + "\n";
+												}
+												writeWasteDates();  // done, pfew.....
+											}
+										}
+										xmlhttp4.open("GET", "https://limburg.net/api-proxy/public/kalender/" + cityNumbers["nisCode"] + "/" + nextMonthY + "-" + nextMonthM + "?straatNummer=" + streetNumbers["nummer"] + "&huisNummer=" + wasteHouseNr, true);
+										xmlhttp4.send();
+									}
+								}
+								xmlhttp3.open("GET", "https://limburg.net/api-proxy/public/kalender/" + cityNumbers["nisCode"] + "/" + currentYear + "-" + currentMonth + "?straatNummer=" + streetNumbers["nummer"] + "&huisNummer=" + wasteHouseNr, true);
+								xmlhttp3.send();
+							}
+						}
+					}
+					xmlhttp2.open("GET", "https://limburg.net/api-proxy/public/afval-kalender/gemeente/" + cityNumbers["nisCode"] + "/straten/search?query=" + wasteStreetName, true);
+					xmlhttp2.send();
+				}
+			}
+		}
+		xmlhttp.open("GET", "https://limburg.net/api-proxy/public/afval-kalender/gemeenten/search?query=" + wasteCity, true);
+		xmlhttp.send();
+	}
 
 	function readArnhem() {
 	

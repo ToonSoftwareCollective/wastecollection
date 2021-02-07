@@ -1,3 +1,7 @@
+4.61
+- new module implemented to retrieve data online for limburg.net
+  Enter city/street and housenr in the settings screen
+
 4.60
 - cannot retrieve limburg.net (provider 10) data online, need to download the ICS file manually via
   limburg.net and copy to file to Toon as /root/waste/waste_calendar.ics

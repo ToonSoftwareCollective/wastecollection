@@ -522,10 +522,6 @@ App {
 			case "Tex": return 5;
 			case "KCA": return 7;
 			case "Gro": return 8;
-<<<<<<< HEAD
-=======
-			case "tui": return 4; //limburg.net 'tuin- en snoeiafval'
->>>>>>> d977c28a562add42e83be4a916d053c35fe4abb9
 			default: break;
 		}
 		return "?";

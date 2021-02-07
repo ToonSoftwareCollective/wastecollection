@@ -1,4 +1,4 @@
-4.61
+4.62
 - new module implemented to retrieve data online for limburg.net
   Enter city/street and housenr in the settings screen
 

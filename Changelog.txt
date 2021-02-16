@@ -6,7 +6,7 @@
   press 'Kopieer' to copy the full url to your calendar ICS file.
 
   On the Toon you need to edit the file /mnt/data/tsc/wastecollection.userSettings.json
-  Paste the full url between the two "" after the "ICSFull" tag.
+  Paste the full url between the two "" after the "ICSUrl" tag.
   The part should now look like  "ICSUrl":"https://wasteprod2api.ximmio.com/api......"
   Save the JSON file.
   On Toon, goto the Menu, Instellingen, TSC, Restart GUI et voila.

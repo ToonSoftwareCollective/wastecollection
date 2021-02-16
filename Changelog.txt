@@ -1,3 +1,18 @@
+4.63
+- fix for Meerlanden (16) (changed backend service provider)
+  Update the app and go to the settings page, change any item and press 'Opslaan' (this to update the settings file to add a new tag ICSurl)
+  On your PC goto https://www.meerlanden.nl and login with your zipcode/housenr
+  when you see your calendar data, press 'Zet in agenda' at the right top of the month calendar
+  press 'Kopieer' to copy the full url to your calendar ICS file.
+
+  On the Toon you need to edit the file /mnt/data/tsc/wastecollection.userSettings.json
+  Paste the full url between the two "" after the "ICSFull" tag.
+  The part should now look like  "ICSUrl":"https://wasteprod2api.ximmio.com/api......"
+  Save the JSON file.
+  On Toon, goto the Menu, Instellingen, TSC, Restart GUI et voila.
+
+- fix for omrin.nl (21) (paper category was not shown properly due to website change)
+
 4.62
 - new module implemented to retrieve data online for limburg.net
   Enter city/street and housenr in the settings screen

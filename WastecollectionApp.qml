@@ -352,7 +352,7 @@ App {
 			readCureAfvalbeheerNew();		//only waste description and date formatting differs from cure-afvalbeheer
 		}
 		if (wasteCollector == "16") {   
-			read2goMobile();			//only waste description differs from cure-afvalbeheer
+			readCureAfvalbeheerNew();			//only waste description differs from cure-afvalbeheer
 		}
 		if (wasteCollector == "18") {   
 			readCureAfvalbeheerNew();		//only waste description differs from cure-afvalbeheer
@@ -812,9 +812,6 @@ App {
 		if (wasteCollector == "38") {   //almere.nl
 	       		var params = "companyCode=53d8db94-7945-42fd-9742-9bbc71dbe4c1&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
-		if (wasteCollector == "16") {   //meerlanden.nl
-	       		var params = "companyCode=800bf8d7-6dd1-4490-ba9d-b419d6dc8a45&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
-		}
 		if (wasteCollector == "30") {   //meppel.nl
 	       		var params = "companyCode=b7a594c7-2490-4413-88f9-94749a3ec62a&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
@@ -874,9 +871,6 @@ App {
 		}
 		if (wasteCollector == "38") {   //almere.nl
 	       		var params = "companyCode=53d8db94-7945-42fd-9742-9bbc71dbe4c1&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
-		}
-		if (wasteCollector == "16") {   //meerlanden.nl
-	       		var params = "companyCode=800bf8d7-6dd1-4490-ba9d-b419d6dc8a45&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
 		}
 		if (wasteCollector == "30") {   //meppel.nl
 	       		var params = "companyCode=b7a594c7-2490-4413-88f9-94749a3ec62a&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
@@ -983,7 +977,7 @@ App {
 
 				//read oudpapier entries (contribution by Arcidodo , thanks)
 
-				i = aNode.indexOf("Oud Papier en Karton");
+				i = aNode.indexOf("Oud papier en karton");
 				m = aNode.indexOf("dates", i);
 
 				for (k = 1; k < 13; k++) {
@@ -992,9 +986,10 @@ App {
 					n = aNode.indexOf("[", i);
 					m = aNode.indexOf("]", i);
 					var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
-
-					for (l = 0; l < monthDates.length; l++) {
-						omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",2");    //oudpapier
+					if ( m !== n+1) {
+						for (l = 0; l < monthDates.length; l++) {
+							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",2");    //oudpapier
+						}
 					}
 				}
 
@@ -1625,6 +1620,9 @@ App {
 			xmlhttp.open("GET", "https://mijnblink.nl/ical/" + wasteICSId, true);
 		}
 		if (wasteCollector == "41") {
+			xmlhttp.open("GET", wasteFullICSUrl , true);
+		}
+		if (wasteCollector == "16") {
 			xmlhttp.open("GET", wasteFullICSUrl , true);
 		}
 		xmlhttp.send();

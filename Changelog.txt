@@ -1,3 +1,6 @@
+4.64
+- fix for Twentemilieu.nl (my own mistake introduced in a recent release)
+
 4.63
 - fix for Meerlanden (16) (changed backend service provider)
   Update the app and go to the settings page, change any item and press 'Opslaan' (this to update the settings file to add a new tag ICSurl)

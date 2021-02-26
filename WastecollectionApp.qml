@@ -801,7 +801,7 @@ App {
 	       		var params = "companyCode=bb58e633-de14-4b2a-9941-5bc419f1c4b0&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
 		if (wasteCollector == "34") {   //twentemilieu.nl
-	       		var params = "companyCode=8d97bb56-5afd-4cbc-a651-b4f7314264b4&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=F";
+	       		var params = "companyCode=8d97bb56-5afd-4cbc-a651-b4f7314264b4&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
 		if (wasteCollector == "35") {   //reinis.nl
 	       		var params = "companyCode=9dc25c8a-175a-4a41-b7a1-83f237a80b77&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";

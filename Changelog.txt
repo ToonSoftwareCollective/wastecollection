@@ -1,3 +1,8 @@
+4.65
+- fix for Drimmelen.nl:
+  you now need to manually download your calendar from drimmelen.nl and copy it to toon as /root/waste/waste_calendar.ics
+- fix for Venlo.nl
+
 4.64
 - fix for Twentemilieu.nl (my own mistake introduced in a recent release)
 

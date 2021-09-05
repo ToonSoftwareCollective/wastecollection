@@ -370,7 +370,7 @@ App {
 			readCureAfvalbeheerNew();
 		}
 		if (wasteCollector == "19") {   
-			readDrimmelen();
+			readCureAfvalbeheer();
 		}
 		if (wasteCollector == "21") {   
 			readOmrin();
@@ -458,6 +458,7 @@ App {
 
 	function wasteTypeCureAfvalbeheer(shortName) {
 		switch (shortName) {
+			case "DUO": return 0;		//venlo.nl
 			case "De res": return 0;	//area-afval.nl
 			case "Het re": return 0;	//area-afval.nl
 			case "Zet uw": return 0;	//area-afval.nl
@@ -1392,7 +1393,7 @@ App {
 					while (i > 0) {
 						j = aNode.indexOf("SUMMARY", i);
 
-						if ((wasteCollector == "7") || (wasteCollector == "8")) {  //dar.nl or cranendock.nl
+						if ((wasteCollector == "7") || (wasteCollector == "8")) {  //dar.nl or cranendock.nl or drimmelen
 							if (wasteCollector == "7") {   //dar.nl
 								wasteType = wasteTypeDarNL(aNode.substring(j+23, j+28));
 							} else {
@@ -1406,7 +1407,11 @@ App {
 								if (wasteCollector == "30") {   //meppel.nl
 									wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+23, j+29));
 								} else {
-									wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
+									if (wasteCollector == "19") {   //drimmelen
+										wasteType = wasteTypeDrimmelen(aNode.substring(j+23, j+26));
+									} else {
+										wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
+									}
 								}
 							}
 							cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
@@ -1440,49 +1445,13 @@ App {
 		switch (shortName) {
 			case "GFT": return 3;
 			case "Pap": return 2;
+			case "Tex": return 5;
 			case "Pla": return 1;
 			case "Res": return 0;
 			default: break;
 		}
 		return "?";
 	}
-
-	function readDrimmelen() {
-	
-		var i = 0;
-		var j = 0;
-		wasteDatesString = "";
-		var wasteType = "";
-		var DrimmelenDates = [];
-		var xmlhttp = new XMLHttpRequest(); 
-		xmlhttp.onreadystatechange=function() {
-			if (xmlhttp.readyState == 4) {
-				if (xmlhttp.status == 200) { 
-					var aNode = xmlhttp.responseText;
-
-					i = aNode.indexOf("DTSTART;VALUE=DATE:");
-					if ( i > 0 ) {
-						while (i > 0) {
-							j = aNode.indexOf("SUMMARY", i); 
-							wasteType = wasteTypeDrimmelen(aNode.substring(j+27, j+30)); 
-							DrimmelenDates.push(aNode.substring(i+19, i+23) + "-" + aNode.substring(i+23, i+25) + "-" + aNode.substring(i+25, i+27) + "," + wasteType);
-								// Get next event
-							i = aNode.indexOf("DTSTART;VALUE=DATE:", i + 19);
-						}
-					}
-					var tmp = WastecollectionJS.sortArray2(DrimmelenDates, extraDates); 
-
-					for (i = 0; i < tmp.length; i++) {
-						wasteDatesString = wasteDatesString + tmp[i] + "\n";
-					}
-					writeWasteDates();
-				}
-			}
-		}
-		xmlhttp.open("GET", "https://drimmelen.nl/trash-removal-calendar/ical/" + wasteZipcode + "/" + wasteHouseNr, true);
-		xmlhttp.send();
-
-	} 
 
 	function readCureAfvalbeheerNew() {
 
@@ -1529,8 +1498,8 @@ App {
 												wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));
 											} else {
 												if (wasteCollector == "27") { //venlo.nl  (split Restafval/pmd)
-													wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+23, k-1));
-													if (aNode.substring(j+23, j+36) == "Restafval/PMD") {
+													wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, k-1));
+													if (aNode.substring(j+8, j+21) == "Restafval/PMD") {
 														wasteType = "0"; // Restafval
 														cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
 														wasteType = "1"; // pmd
@@ -1602,7 +1571,7 @@ App {
 			xmlhttp.open("GET", "https://inzamelkalender.gad.nl/ical/" + wasteICSId, true);
 		}
 		if (wasteCollector == "27") {
-			xmlhttp.open("GET", "https://www.venlo.nl/trash-removal-calendar/ical/" + wasteZipcode + "/" + wasteHouseNr, true);
+			xmlhttp.open("GET", "https://www.venlo.nl/trash-calendar/download/" + wasteZipcode + "/" + wasteHouseNr, true);
 		}
 		if (wasteCollector == "29") {
 			xmlhttp.open("GET", "https://www.veldhoven.nl/afvalkalender/" + toDay.getFullYear() + "/" + wasteZipcode + "-" + wasteHouseNr + ".ics", true);

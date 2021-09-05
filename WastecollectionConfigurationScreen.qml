@@ -276,7 +276,6 @@ Screen {
 					"              cranendonck.nl\n" +
 					"              rd4info.nl\n" +
 					"              afvalalert.nl\n" +
-					"              drimmelen.nl\n" +
 					"              afvalstoffendienstkalender.nl\n" +
 					"              venlo.nl\n" +
 					"              bar-afbalbeheer.nl\n" +
@@ -424,7 +423,6 @@ Screen {
 					"              cranendonck.nl\n" +
 					"              rd4info.nl\n" +
 					"              afvalalert.nl\n" +
-					"              drimmelen.nl\n" +
 					"              afvalstoffendienstkalender.nl\n" +
 					"              venlo.nl\n" +
 					"              bar-afbalbeheer.nl\n" +

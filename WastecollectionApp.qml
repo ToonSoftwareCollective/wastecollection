@@ -52,6 +52,8 @@ App {
 			//				39: "purmerend.nl"
 			//				40: "spaarnelanden.nl"
 			//				41: "RAD Hoeksewaard"
+			//				42: "mijnblink.nl"
+			//				43 : ACV groep Veenedaal e.o.
 			//				0: "overig (handmatig)"
 			//		
 	property string wasteZipcode : "72030"	// or PC variable for iok.be / limburg.net
@@ -417,6 +419,9 @@ App {
 		}
 		if (wasteCollector == "42") {   
 			readCureAfvalbeheerNew();
+		}
+		if (wasteCollector == "43") {   
+			read2goMobile();
 		}
 	}
 
@@ -819,6 +824,9 @@ App {
 		if (wasteCollector == "41") {   //RAD Hoeksewaard
 	       		var params = "companyCode=13a2cad9-36d0-4b01-b877-efcb421a864d&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
 		}
+		if (wasteCollector == "43") {   //ACV o.a. Veenendaal
+	       		var params = "companyCode=f8e2844a-095e-48f9-9f98-71fceb51d2c3&postCode=" + wasteZipcode + "&houseNumber=" + wasteHouseNr + "&houseLetter=&houseNumberAddition=";
+		}
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST", "https://wasteapi.2go-mobile.com/api/FetchAdress", true);
         	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -878,6 +886,9 @@ App {
 		}
 		if (wasteCollector == "41") {   //RAD Hoeksewaard
 	       		var params = "companyCode=13a2cad9-36d0-4b01-b877-efcb421a864d&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
+		}
+		if (wasteCollector == "43") {   //ACV groep
+	       		var params = "companyCode=f8e2844a-095e-48f9-9f98-71fceb51d2c3&uniqueAddressId=" + uniqueId + "&startDate=" + startDate + "&endDate=" + endDate;
 		}
 
 		var xmlhttp = new XMLHttpRequest();

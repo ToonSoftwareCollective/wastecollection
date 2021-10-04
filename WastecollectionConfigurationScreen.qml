@@ -138,10 +138,10 @@ Screen {
 
 	function validateAfvalverwerker(text, isFinalString) {
 		if (isFinalString) {
-			if (parseInt(text) < 43)
+			if (parseInt(text) < 44)
 				return null;
 			else
-				return {title: "Ongeldig keuze", content: "Voer een getal in kleiner dan 39"};
+				return {title: "Ongeldig keuze", content: "Voer een getal in kleiner dan 44"};
 		}
 		return null;
 	}

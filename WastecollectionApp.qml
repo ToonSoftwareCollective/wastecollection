@@ -1588,7 +1588,7 @@ App {
 			xmlhttp.open("GET", "https://www.veldhoven.nl/afvalkalender/" + toDay.getFullYear() + "/" + wasteZipcode + "-" + wasteHouseNr + ".ics", true);
 		}
 		if (wasteCollector == "37") {
-			xmlhttp.open("GET", "https://inzamelkalender.stadswerk072.nl/ical/" + wasteICSId, true);
+			xmlhttp.open("GET", "https://www.stadswerk072.nl/ical/" + wasteICSId, true);
 		}
 		if (wasteCollector == "39") {
 			xmlhttp.open("GET", "https://afvalkalender.purmerend.nl/ical/" + wasteICSId, true);

@@ -1,3 +1,6 @@
+4.67
+- implemented url change for stadswerk072.nl
+
 4.66
 - added provider '43': ACV groep  - Veenedaal en omstreken
   Select provider 43 and enter postcode/housenr in the settings screen

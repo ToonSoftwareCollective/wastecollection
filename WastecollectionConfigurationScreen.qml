@@ -26,7 +26,7 @@ Screen {
 			case "23" : return "https://afvalkalender.alphenaandenrijn.nl/ical/";
 			case "24" : return "https://www.avalex.nl/ical/";
 			case "26" : return "https://inzamelkalender.gad.nl/ical/";
-			case "37" : return "https://inzamelkalender.stadswerk072.nl/ical/";
+			case "37" : return "https://www.stadswerk072.nl/ical/";
 			case "39" : return "https://afvalkalender.purmerend.nl/ical/";
 			case "40" : return "https://afvalwijzer.spaarnelanden.nl/ical/";
 			case "42" : return "https://mijnblink.nl/ical/";

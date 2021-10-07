@@ -835,6 +835,7 @@ App {
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
 				addressJson = JSON.parse(xmlhttp.responseText);
+				console.log("Avalex:"+xmlhttp.responseText);
 				read2goMobileCalendar(addressJson['dataList'][0]['UniqueId']);
 			}
 		}
@@ -1502,30 +1503,26 @@ App {
 									if (wasteCollector == "12") {   //rmn.nl
 										wasteType = wasteTypeRmn(aNode.substring(j+8, j+11));
 									} else {
-										if (wasteCollector == "23") {  // alphenaandenrijn.nl
+										if  ((wasteCollector == "23") || (wasteCollector == "41") || (wasteCollector == "24")) {  // alphenaandenrijn.nl + rad.nl + Avalex
 											wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));
 										} else {
-											if (wasteCollector == "23" || (wasteCollector == "41")) {  // alphenaandenrijn.nl + rad.nl
-												wasteType = wasteTypeMeerlanden(aNode.substring(j+8, j+11));
+											if (wasteCollector == "27") { //venlo.nl  (split Restafval/pmd)
+												wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, k-1));
+												if (aNode.substring(j+8, j+21) == "Restafval/PMD") {
+													wasteType = "0"; // Restafval
+													cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
+													wasteType = "1"; // pmd
+												}
 											} else {
-												if (wasteCollector == "27") { //venlo.nl  (split Restafval/pmd)
-													wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, k-1));
-													if (aNode.substring(j+8, j+21) == "Restafval/PMD") {
-														wasteType = "0"; // Restafval
+												if (wasteCollector == "40") { //spaarnelanden.nl  (split papier/pmd)
+													wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
+													if (aNode.substring(j+8, j+14) == "Duobak") {
+														wasteType = "2"; // papier
 														cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
 														wasteType = "1"; // pmd
 													}
 												} else {
-													if (wasteCollector == "40") { //spaarnelanden.nl  (split papier/pmd)
-														wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
-														if (aNode.substring(j+8, j+14) == "Duobak") {
-															wasteType = "2"; // papier
-															cureAfvalbeheerDates.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
-															wasteType = "1"; // pmd
-														}
-													} else {
-														wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
-													}
+													wasteType = wasteTypeCureAfvalbeheer(aNode.substring(j+8, j+14));
 												}
 											}
 										}
@@ -1575,9 +1572,6 @@ App {
 		if (wasteCollector == "23") {
 			xmlhttp.open("GET", "https://afvalkalender.alphenaandenrijn.nl/ical/" + wasteICSId, true);
 		}
-		if (wasteCollector == "24") {
-			xmlhttp.open("GET", "https://www.avalex.nl/ical/" + wasteICSId, true);
-		}
 		if (wasteCollector == "26") {
 			xmlhttp.open("GET", "https://inzamelkalender.gad.nl/ical/" + wasteICSId, true);
 		}
@@ -1603,6 +1597,9 @@ App {
 			xmlhttp.open("GET", wasteFullICSUrl , true);
 		}
 		if (wasteCollector == "16") {
+			xmlhttp.open("GET", wasteFullICSUrl , true);
+		}
+		if (wasteCollector == "24") {
 			xmlhttp.open("GET", wasteFullICSUrl , true);
 		}
 		xmlhttp.send();

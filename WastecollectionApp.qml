@@ -955,53 +955,119 @@ App {
 				//read sortibak entries
 
 				i = aNode.indexOf("Sortibak");
-				m = aNode.indexOf("dates", i);
+				if (i > 0) {
+					m = aNode.indexOf("dates", i);
+	
+					for (k = 1; k < 13; k++) {
+	
+						monthStr = ("00" + k).slice(-2);
+						i = aNode.indexOf('"' + k + '"', m);
+						n = aNode.indexOf("[", i);
+						m = aNode.indexOf("]", i);
+						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
 
-				for (k = 1; k < 13; k++) {
+						for (l = 0; l < monthDates.length; l++) {	
+							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",0");    //restafval
+						}
+					}
+				}
 
-					monthStr = ("00" + k).slice(-2);
-					i = aNode.indexOf('"' + k + '"', m);
-					n = aNode.indexOf("[", i);
-					m = aNode.indexOf("]", i);
-					var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+				//read restafval entries
 
-					for (l = 0; l < monthDates.length; l++) {
-						omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",0");    //restafval
+				i = aNode.indexOf("Restafval");
+				if (i > 0) {
+					m = aNode.indexOf("dates", i);
+	
+					for (k = 1; k < 13; k++) {
+
+						monthStr = ("00" + k).slice(-2);
+						i = aNode.indexOf('"' + k + '"', m);
+						n = aNode.indexOf("[", i);
+						m = aNode.indexOf("]", i);
+						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+
+						for (l = 0; l < monthDates.length; l++) {
+							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",0");    //restafval
+						}
 					}
 				}
 
 				//read biobak entries
 
 				i = aNode.indexOf("Biobak");
-				m = aNode.indexOf("dates", i);
+				if (i > 0) {
+					m = aNode.indexOf("dates", i);
+	
+					for (k = 1; k < 13; k++) {
 
-				for (k = 1; k < 13; k++) {
+						monthStr = ("00" + k).slice(-2);
+						i = aNode.indexOf('"' + k + '"', m);
+						n = aNode.indexOf("[", i);
+						m = aNode.indexOf("]", i);
+						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
 
-					monthStr = ("00" + k).slice(-2);
-					i = aNode.indexOf('"' + k + '"', m);
-					n = aNode.indexOf("[", i);
-					m = aNode.indexOf("]", i);
-					var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+						for (l = 0; l < monthDates.length; l++) {
+							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",3");    //gft
+						}
+					}
+				}
+	
+				//read biobak entries
 
-					for (l = 0; l < monthDates.length; l++) {
-						omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",3");    //gft
+				i = aNode.indexOf("GFT Afval");
+				if (i > 0) {
+					m = aNode.indexOf("dates", i);
+
+					for (k = 1; k < 13; k++) {
+
+						monthStr = ("00" + k).slice(-2);
+						i = aNode.indexOf('"' + k + '"', m);
+						n = aNode.indexOf("[", i);
+						m = aNode.indexOf("]", i);
+						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+	
+						for (l = 0; l < monthDates.length; l++) {
+							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",3");    //gft
+						}
+					}
+				}
+	
+				//read snoeiafval entries
+
+				i = aNode.indexOf("Snoeiafval");
+				if (i > 0) {
+					m = aNode.indexOf("dates", i);
+
+					for (k = 1; k < 13; k++) {
+
+						monthStr = ("00" + k).slice(-2);
+						i = aNode.indexOf('"' + k + '"', m);
+						n = aNode.indexOf("[", i);
+						m = aNode.indexOf("]", i);
+						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+	
+						for (l = 0; l < monthDates.length; l++) {
+							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",4");    //gft
+						}
 					}
 				}
 
 				//read oudpapier entries (contribution by Arcidodo , thanks)
 
 				i = aNode.indexOf("Oud papier en karton");
-				m = aNode.indexOf("dates", i);
+				if (i > 0) {
+					m = aNode.indexOf("dates", i);
 
-				for (k = 1; k < 13; k++) {
-					monthStr = ("00" + k).slice(-2);
-					i = aNode.indexOf('"' + k + '"', m);
-					n = aNode.indexOf("[", i);
-					m = aNode.indexOf("]", i);
-					var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
-					if ( m !== n+1) {
-						for (l = 0; l < monthDates.length; l++) {
-							omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",2");    //oudpapier
+					for (k = 1; k < 13; k++) {
+						monthStr = ("00" + k).slice(-2);
+						i = aNode.indexOf('"' + k + '"', m);
+						n = aNode.indexOf("[", i);
+						m = aNode.indexOf("]", i);
+						var monthDates = aNode.substring(n + 1, m).split(',');  //get array for the month
+						if ( m !== n+1) {
+							for (l = 0; l < monthDates.length; l++) {
+								omrinAfvalbeheerDates.push(omrinYear + "-" + monthStr + "-" + monthDates[l].replace(/['"]+/g, '') + ",2");    //oudpapier
+							}
 						}
 					}
 				}

@@ -1,3 +1,6 @@
+4.69
+- bugfix for omrin.nl
+
 4.68
 - fixed new avalex.nl link
 

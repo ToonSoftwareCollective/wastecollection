@@ -324,7 +324,7 @@ App {
 			readCureAfvalbeheerNew();
 		}
 		if (wasteCollector == "13") {
-			readCureAfvalbeheerNew();
+			readMijnafvalwijzerHTML();
 		}
 		if (wasteCollector == "14") {
 			readMijnafvalwijzerHTML();
@@ -450,9 +450,11 @@ App {
 				case "Los papier": return 2;
 				case "pd": return 2;
 				case "plastic verpakking & drankkartons": return 1;
+				case "gkbp": return 1;
 				case "plastic, metalen en drankkartons": return 1;
 				case "plastic, blik en drankenkartons": return 1;
 				case "plastic": return 1;
+				case "textiel": return 5;
 				case "grofvuil (op afroep)": return 8;
 				case "snoeihout (op afroep)": return 4;
 				case "reinigen containers": return "z";
@@ -835,7 +837,6 @@ App {
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
 				addressJson = JSON.parse(xmlhttp.responseText);
-				console.log("Avalex:"+xmlhttp.responseText);
 				read2goMobileCalendar(addressJson['dataList'][0]['UniqueId']);
 			}
 		}
@@ -1113,7 +1114,6 @@ App {
 						// retrieve street id
 	
 					var i = xmlhttp.responseText.indexOf("}");
-					console.log(xmlhttp.responseText.substring(1,i+1));
 					var cityNumbers = JSON.parse(xmlhttp.responseText.substring(1,i+1));
 					if (wasteCity !== cityNumbers["naam"]) {
 						wasteCity = cityNumbers["naam"];
@@ -1136,7 +1136,6 @@ App {
 								var xmlhttp3 = new XMLHttpRequest();
 								xmlhttp3.onreadystatechange = function() {
 									if (xmlhttp3.readyState == XMLHttpRequest.DONE) {
-										console.log(xmlhttp3.responseText);
 										var collectionDates = JSON.parse(xmlhttp3.responseText);
 										if (collectionDates["ophalingen"]["lijstVanOphaalDagen"].length > 0) {
 											for (var i = 0; i < collectionDates["ophalingen"]["lijstVanOphaalDagen"].length; i++) {
@@ -1630,7 +1629,7 @@ App {
 			xmlhttp.open("GET", "https://inzamelschema.rmn.nl/ical/" + wasteICSId, true);
 		}
 		if (wasteCollector == "13") {
-			xmlhttp.open("GET", "https://inzamelwijzer.suez.nl/ical/" + wasteICSId, true);
+			xmlhttp.open("GET", "https://inzamelwijzer.prezero.nl/ical/" + wasteICSId, true);
 		}
 		if (wasteCollector == "18") {
 			xmlhttp.open("GET", "http://afvalkalender.zrd.nl/ical/" + wasteICSId, true);
@@ -1783,7 +1782,6 @@ App {
 						while (i < endList) {
 							j = aNode.indexOf('"', i);
 							wasteCodeHTML = aNode.substring(i + 7,j);
-							console.log("********** Joop:" + wasteCodeHTML);
 							j = aNode.indexOf('"' + wasteCodeHTML, i);
 
 							k = aNode.indexOf('span-line-break', j);
@@ -1832,7 +1830,7 @@ App {
 		if (wasteCollector == "14") {
 			xmlhttp.open("GET", "https://inzamelkalender.rova.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
 		}
-		if ((wasteCollector == "31") ||  (wasteCollector == "1")) {
+		if ((wasteCollector == "31") ||  (wasteCollector == "1") ||  (wasteCollector == "13")) {
 			xmlhttp.open("GET", "https://www.mijnafvalwijzer.nl/nl/" + wasteZipcode + "/" + wasteHouseNr, true);
 		}
 		xmlhttp.send();

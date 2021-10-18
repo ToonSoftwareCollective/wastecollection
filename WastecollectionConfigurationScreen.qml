@@ -21,7 +21,6 @@ Screen {
 			case "6" : return "https://inzamelkalender.hvcgroep.nl/ical/";
 			case "7" : return "https://afvalkalender.dar.nl/ical/";
 			case "12" : return "https://inzamelschema.rmn.nl/ical/";
-			case "13" : return "https://inzamelwijzer.suez.nl/ical/";
 			case "18" : return "http://afvalkalender.zrd.nl/ical/";
 			case "23" : return "https://afvalkalender.alphenaandenrijn.nl/ical/";
 			case "26" : return "https://inzamelkalender.gad.nl/ical/";

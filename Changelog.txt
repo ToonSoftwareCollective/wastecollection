@@ -1,3 +1,6 @@
+4.70
+- fix for suez.nl (which is now prezero.nl). Need to enter zipcode/housenr in config screen.
+
 4.69
 - bugfix for omrin.nl
 

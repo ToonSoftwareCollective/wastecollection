@@ -1,3 +1,17 @@
+5.0
+- Major rewrite of the application. Please read the info on domoticaforum.eu.
+  Code for each waste company is now separately downloaded from github.
+  This results in an extra gui restart after downloading your module via the settings screen.
+  The apps comes by default with the script for mijnafvalwijzer.nl (provider "1").
+  A daily check is performed for new online script versions for your provider.
+  When a version is available, the tile background will color red.
+  Pressing the tile will download the new script and restart the Toon gui. 
+
+  No new functionality has been added other than the above with the following benefits:
+  - Adding a new waste company or changing the script of a current one can now be done without
+    the need for a new release of the app in the ToonStore.
+  - 70% less javascript code in the app compared to version 4.x, smaller memory footprint
+
 4.70
 - fix for suez.nl (which is now prezero.nl). Need to enter zipcode/housenr in config screen.
 

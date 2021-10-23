@@ -6,10 +6,14 @@ Tile {
 	id: wastecollectionTile
 
 	property bool dimState: screenStateController.dimmedColors
+	bgColor: app.scriptUpdateAvailable ? "#FF0000" : "#FFFFFF"
 
 	onClicked: {
-		if (app.wastecollectionListDatesScreen)
-			app.wastecollectionListDatesScreen.show();
+		if (app.wastecollectionConfigurationScreen && app.scriptUpdateAvailable) {
+			 app.wastecollectionConfigurationScreen.show();
+		} else {
+			if (app.wastecollectionListDatesScreen) app.wastecollectionListDatesScreen.show();
+		}
 	}
 
 	Image {

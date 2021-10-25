@@ -1,4 +1,4 @@
-5.0
+5.1
 - Major rewrite of the application. Please read the info on domoticaforum.eu.
   Code for each waste company is now separately downloaded from github.
   This results in an extra gui restart after downloading your module via the settings screen.

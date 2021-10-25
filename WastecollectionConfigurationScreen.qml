@@ -659,7 +659,7 @@ Screen {
 		anchors {
 			left: wasteICSIdLabel.left
 			top: wasteICSIdLabel.bottom
-			topMargin: isNxt ? 25 : 20
+			topMargin: isNxt ? 15 : 12
 		}
 
 		onClicked: {

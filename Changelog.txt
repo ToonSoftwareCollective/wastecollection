@@ -1,3 +1,7 @@
+5.2
+- tile in dim state will show the next 3 collection dates when no collection is happening today.
+  if there is a waste collection today, just the icon(s) will be shown in dim state
+
 5.1
 - Major rewrite of the application. Please read the info on domoticaforum.eu.
   Code for each waste company is now separately downloaded from github.

@@ -149,7 +149,7 @@ Tile {
 			pixelSize: isNxt ? 25 : 20
 		}
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.waTileTextColor : colors.waTileTextColor
-       		visible: !dimState
+       		visible: dimState ? (!app.wasteIconShow && !app.wasteIcon2Show) : true  // only show in non-dim if no icons are shown
 	}
 
 	Text {
@@ -165,7 +165,7 @@ Tile {
 			pixelSize: isNxt ? 22 : 18
 		}
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.waTileTextColor : colors.waTileTextColor
-       	visible: !dimState
+       		visible: dimState ? (!app.wasteIconShow && !app.wasteIcon2Show) : true  // only show in non-dim if no icons are shown
 	}
 
 	Text {
@@ -181,7 +181,7 @@ Tile {
 			pixelSize: isNxt ? 18 : 15
 		}
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-        	visible: !dimState
+       		visible: dimState ? (!app.wasteIconShow && !app.wasteIcon2Show) : true  // only show in non-dim if no icons are shown
 	}
 
 	Text {
@@ -197,7 +197,7 @@ Tile {
 			pixelSize: isNxt ? 22 : 18
 		}
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.waTileTextColor : colors.waTileTextColor
-       	visible: !dimState
+       		visible: dimState ? (!app.wasteIconShow && !app.wasteIcon2Show) : true  // only show in non-dim if no icons are shown
 	}
 
 	Text {
@@ -213,7 +213,7 @@ Tile {
 			pixelSize: isNxt ? 18 : 15
 		}
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-        	visible: !dimState
+       		visible: dimState ? (!app.wasteIconShow && !app.wasteIcon2Show) : true  // only show in non-dim if no icons are shown
 	}
 
 	Text {
@@ -229,7 +229,7 @@ Tile {
 			pixelSize: isNxt ? 22 : 18
 		}
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.waTileTextColor : colors.waTileTextColor
-       	visible: !dimState
+       		visible: dimState ? (!app.wasteIconShow && !app.wasteIcon2Show) : true  // only show in non-dim if no icons are shown
 	}
 
 	Text {
@@ -245,6 +245,6 @@ Tile {
 			pixelSize: isNxt ? 18 : 15
 		}
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-        	visible: !dimState
+       		visible: dimState ? (!app.wasteIconShow && !app.wasteIcon2Show) : true  // only show in non-dim if no icons are shown
 	}
 }

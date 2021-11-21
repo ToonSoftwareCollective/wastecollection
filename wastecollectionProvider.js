@@ -1,61 +1,119 @@
-//<provider>42</provider><version>1.0.0</version><parms>"ICSId"</parms>
-//provider mijnblink.nl testdata:https://mijnblink.nl/ical/1659200000003862
+//<provider>22</provider><version>1.0.1</version><parms></parms>
+//afvalstoffendienst.nl testdata: 5237KW 400
 
 	function readCalendar(wasteZipcode, wasteHouseNr, extraDates, enableCreateICS, wasteICSId, wasteStreet, wasteStreetName, wasteCity, wasteFullICSUrl) {
-
+	
 		var i = 0;
 		var j = 0;
 		var k = 0;
-		var wasteDatesString = "";
-		var wasteType = "";
-		var wasteDatesArray = [];
-		var xmlhttp = new XMLHttpRequest();
+		var l = 0;
+		var endList = 0;
 
+		wasteDatesString = "";
+		var wasteType = "";
+		var wasteCodeHTML = "";
+		var resultDates = [];
+		var mijnAfvalwijzerDates = [];
+		var wasteDateYMD = "";
+		var wasteYear = "";
+
+		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function() {
 			if (xmlhttp.readyState == 4) {
 				if (xmlhttp.status == 200) {
+
 					var aNode = xmlhttp.responseText;
 
-					// read specific waste collection dates check DATE format
+					// read specific waste collection dates
 
-					i = aNode.indexOf("DTSTART");
-					if (i > 0) {
-						if (aNode.substring(i, i+18) == "DTSTART;VALUE=DATE") i = i + 11;
+					i = aNode.indexOf("jaar-");
+					j = aNode.indexOf('"', i);
+					wasteYear = aNode.substring(i + 5,j);
+
+					i = aNode.indexOf("ophaaldagen", i);
+					aNode = aNode.slice(i);
+					i = 0;
+
+					i = aNode.indexOf("<p class");
+					endList = aNode.indexOf("container-fluid");  //stop here
+
+					if ( i < endList) {
+						while (i < endList) {
+							j = aNode.indexOf('"', i+10);
+							wasteCodeHTML = aNode.substring(i+10,j);
+							l = aNode.indexOf('<', j);
+
+							resultDates =  aNode.substring(j + 2, l).split(" ");
+	
+							wasteDateYMD = wasteYear + "-" + decodeMonth(resultDates[2]) + "-" + resultDates[1];
+							wasteType = wasteTypeMijnafvalwijzer(wasteCodeHTML);
+							i = aNode.indexOf("date");
+							mijnAfvalwijzerDates .push(wasteDateYMD + "," + wasteType);
+
+							i = aNode.indexOf("<p class", l);
+						}
 					}
 
-					if ( i > 0 ) {
-						while (i > 0) {
-							j = aNode.indexOf("SUMMARY", i);
-
-							wasteType = wasteTypeCode(aNode.substring(j+8, j+14));
-							wasteDatesArray.push(aNode.substring(i+8, i+12) + "-" + aNode.substring(i+12, i+14) + "-" + aNode.substring(i+14, i+16) + "," + wasteType);
-
-							i = aNode.indexOf("DTSTART", i + 10);	
-							if (i > 0) {
-								if (aNode.substring(i, i+18) == "DTSTART;VALUE=DATE") i = i + 11;
-							}
-						}
-					}	
+					var tmp = sortArray2(mijnAfvalwijzerDates , extraDates);
+					for (i = 0; i < tmp.length; i++) {
+						wasteDatesString = wasteDatesString + tmp[i] + "\n";
+					}
+					writeWasteDates(wasteDatesString, enableCreateICS);
 				}
-				var tmp = sortArray2(wasteDatesArray, extraDates);
-				for (i = 0; i < tmp.length; i++) {
-					wasteDatesString = wasteDatesString + tmp[i] + "\n";
-				}
-				writeWasteDates(wasteDatesString, enableCreateICS);
 			}
-		} 
-		xmlhttp.open("GET", "https://mijnblink.nl/ical/" + wasteICSId, true);
+		}
+		xmlhttp.open("GET", "file:///root/waste/Afvalstoffendienst - Afvalkalender.html", true);
 		xmlhttp.send();
 	}
 
-	function wasteTypeCode(shortName) {
-		switch (shortName) {
-			case "GFT - ": return 3;
-			case "Restaf": return 0;
-			case "Papier": return 2;
-			case "Plasti": return 1;
+	function decodeMonth(month) {
+
+		switch (month) {
+			case "januari": return "01";
+			case "februari": return "02";
+			case "maart": return "03";
+			case "april": return "04";
+			case "mei": return "05";
+			case "juni": return "06";
+			case "juli": return "07";
+			case "augustus": return "08";
+			case "september": return "09";
+			case "oktober": return "10";
+			case "november": return "11";
+			case "december": return "12";
 			default: break;
 		}
+		return "??";
+	}
+
+	function wasteTypeMijnafvalwijzer(shortName) {
+			switch (shortName) {
+				case "grofvuil": return 8;
+				case "grofvuil\\/oud ijzer": return 8;
+				case "tuinafval": return 4;
+				case "papier": return 2;
+				case "gft": return 3;
+				case "gft-afval": return 3;
+				case "gft+e(tensresten)": return 3;
+				case "opk": return 2;
+				case "pmd": return 1;
+				case "gft ": return 3;
+				case "groente, fruit en tuinafval": return 3;
+				case "pbd": return 2;
+				case "restafval": return 0;
+				case "takken": return 4;
+				case "kerstbomen": return 4;
+				case "papier & karton": return 2;
+				case "papier en karton": return 2;
+				case "textiel": return 5;
+				case "plastic verpakking & drankkartons": return 1;
+				case "plastic, metalen en drankkartons": return 1;
+				case "plastic": return 1;
+				case "grofvuil (op afroep)": return 8;
+				case "snoeihout (op afroep)": return 4;
+				case "reinigen containers": return "z";
+				default: break;
+			}
 		return "?";
 	}
 

@@ -1,3 +1,6 @@
+5.3
+- bugfix for using provider "0" (manual dates)
+
 5.2
 - tile in dim state will show the next 3 collection dates when no collection is happening today.
   if there is a waste collection today, just the icon(s) will be shown in dim state

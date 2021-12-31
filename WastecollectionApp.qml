@@ -214,11 +214,11 @@ App {
 					extraDates = newArray;
 					if (wasteCollector == "0") {	// manual waste provider, just write extra dates
 						wasteDatesString = "";
-						var tmp = WastecollectionJS.sortArray2(extraDates, []);
+						var tmp = WastecollectionProviderJS.sortArray2(extraDates, []);
 						for (i = 0; i < tmp.length; i++) {
 							wasteDatesString = wasteDatesString + tmp[i] + "\n";
 						}
-						WastecollectionJS.writeWasteDates(wasteDatesString, []);
+						WastecollectionProviderJS.writeWasteDates(wasteDatesString, []);
 					}
 				}
  			}

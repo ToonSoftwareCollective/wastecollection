@@ -1,3 +1,7 @@
+5.4
+- added new waste icon for 'Kerstbomen', thanks to TheHogNL for the artwork :-)
+  Several provider scripts will get an update in the coming days to reflect this.
+
 5.3
 - bugfix for using provider "0" (manual dates)
 

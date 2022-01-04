@@ -349,7 +349,7 @@ App {
 	}
 
 	function wasteTypeFriendlyName(wasteCode) {
-		if (((wasteCode >= "0") && (wasteCode <= "9")) || (wasteCode == "!") || (wasteCode == "z") || (wasteCode == "?"))  {
+		if (((wasteCode >= "0") && (wasteCode <= "9")) || (wasteCode == "!") || (wasteCode == "z") || (wasteCode == "?") || (wasteCode == "#"))  {
 			switch (wasteCode) {
 				case "9" : return "Kunststoffen";
 				case "8" : return "Groot vuil";
@@ -362,6 +362,7 @@ App {
 				case "1" : return "Plastic/Metaal/Drankpakken";
 				case "0" : return "Restafval";
 				case "!" : return "BEST tas";
+				case "#" : return "Kerstboom";
 				case "z" : return "Reinigen container";
 				case "?" : return "Onbekend";
 				default: break;
@@ -383,7 +384,7 @@ App {
 		else
 			var wasteIconLocation = "file:///qmf/qml/apps/wastecollection/drawables/";
 
-		if (((wasteCode >= "0") && (wasteCode <= "9")) || (wasteCode == "!")) {
+		if (((wasteCode >= "0") && (wasteCode <= "9")) || (wasteCode == "!") || (wasteCode == "#")) {
 			switch (wasteCode) {
 				case "9" : return wasteIconLocation + "kunststofDim.png";
 				case "8" : return wasteIconLocation + "grootvuilDim.png";
@@ -396,6 +397,7 @@ App {
 				case "1" : return wasteIconLocation + "pmdDim.png";
 				case "0" : return wasteIconLocation + "restafvalDim.png";
 				case "!" : return wasteIconLocation + "best.png";
+				case "#" : return wasteIconLocation + "kerstboomDim.png";
 				default: break;
 			}
 		} else {   //extra Icons

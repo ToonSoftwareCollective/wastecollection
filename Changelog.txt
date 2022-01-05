@@ -1,3 +1,7 @@
+5.5
+- simplified integration with the Thermostat panel to show icons.
+  icons in the thermostat panel are now updated in real time with the app itself
+
 5.4
 - added new waste icon for 'Kerstbomen', thanks to TheHogNL for the artwork :-)
   Several provider scripts will get an update in the coming days to reflect this.

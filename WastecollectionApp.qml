@@ -339,12 +339,22 @@ App {
 	function writeWasteIconData() {
    		var doc3 = new XMLHttpRequest();
    		doc3.open("PUT", "file:///var/volatile/tmp/wasteDateIcon.txt");
+		doc3.onreadystatechange = function() {
+		    	if (doc3.readyState === XMLHttpRequest.DONE) {
+				tscsignals.tscSignal("wastecollection", "show icon");
+			}
+		}
    		doc3.send(wasteIcon);
 	}
 
 	function writeWasteIconData2() {
    		var doc4 = new XMLHttpRequest();
    		doc4.open("PUT", "file:///var/volatile/tmp/wasteDateIcon2.txt");
+		doc4.onreadystatechange = function() {
+		    	if (doc4.readyState === XMLHttpRequest.DONE) {
+				tscsignals.tscSignal("wastecollection", "show icon");
+			}
+		}
    		doc4.send(wasteIcon2);
 	}
 

@@ -42,7 +42,7 @@ Screen {
 
 	function performVersionCheck(appName, appArguments) {
 
-		if (appName == "wastecollection") {
+		if ((appName == "wastecollection") || (appArguments = "perform javascript version check")) {
 			checkforUpdates("DoNotUpdateYet");
 		}
 	}
